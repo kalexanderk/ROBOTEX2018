@@ -9,14 +9,16 @@ def command_sender(cmd):
     mboard = mainboard.ComportMainboard()
     mboard.run()
 
+    print("before")
     rate = rospy.Rate(1)
 
     while not rospy.is_shutdown():
-        mboard.launch_motor(14,16,10,30)
+        print("after")
+        mboard.write("b\n")
         rate.sleep()
 
 if __name__ == '__main__':
     try:
         command_sender("b")
     except rospy.ROSInterruptException:
-	 pass
+        pass
