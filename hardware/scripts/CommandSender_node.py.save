@@ -19,6 +19,7 @@ def command_sender(cmd):
 
 if __name__ == '__main__':
     try:
-        command_sender("sd:-20:20:0:0\n")
+        command_sender("sd:-4
+0:40:0:0\n")
     except rospy.ROSInterruptException:
         pass
