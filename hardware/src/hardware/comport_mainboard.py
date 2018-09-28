@@ -4,12 +4,13 @@ import time
 import subprocess
 import rospy
 
-"""
-Taken from:
-https://bitbucket.org/MartinAppo/diploaf-2017/src/master/hardware_module/src/hardware_module/comport_mainboard.py?fileviewer=file-view-default
-"""
+
+# Taken from:
+# https://bitbucket.org/MartinAppo/diploaf-2017/src/master/hardware_module/src/hardware_module/comport_mainboard.py?fileviewer=file-view-default
+
 
 class ComportMainboard(threading.Thread):
+
     connection = None
     connection_opened = False
 
@@ -44,10 +45,32 @@ class ComportMainboard(threading.Thread):
             except:
                 print('mainboard: err write ' + comm)
 
-
-    def launch_motor(self, speed1, speed2, speed3, speed4):
+    #launch_wheel_motors(-20,20,0)
+    def launch_wheel_motors(self,speed1, speed2, speed3):
         if self.connection_opened:
-            self.write("sd:{}:{}:{}:{}".format(speed1, speed2, speed3, speed4))
+            self.write("sd:{}:{}:{}".format(speed1, speed2, speed3))
+
+    #launch_thrower(50)
+    def launch_thrower(self, speed):
+        if self.connection_opened:
+            self.write("d:{}".format(speed))
+
+    #get_wheel_speeds()
+    def get_wheel_speeds(self):
+        if self.connection_opened:
+            self.write("gs\n")
+            return self.connection.readline()
+
+    # #write_speeds()
+    # def write_speeds(self):
+    #     if self.connection is not None and self.connection_opened:
+    #         rospy.loginfo("Speeds are: " + self.get_wheel_speeds())
+
+
+    #send_referee_signal_string("START")
+    def send_referee_signal_string(self, signal_string):
+        if self.connection_opened:
+            self.write("rf:{}".format(signal_string))
 
     def close(self):
         if self.connection is not None and self.connection.isOpen():  # close coil
