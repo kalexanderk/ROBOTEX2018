@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0ae755f-4fde-422a-9ac4-d113e41b80ee" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/hardware/launch/hardware.launch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hardware/scripts/command_sender.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/image_processing/launch/image_processing.launch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/image_processing/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hardware/scripts/CommandSender_node.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hardware/scripts/CommandSender_node.py.save" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hardware/scripts/command_sender.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/scripts/command_sender.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,61 +12,29 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/ROBOTEX2018$image_processing.coverage" NAME="image_processing Coverage Results" MODIFIED="1538324553290" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/image_processing/scripts" />
+    <SUITE FILE_PATH="coverage/ROBOTEX2018$rahmen_detector.coverage" NAME="rahmen_detector Coverage Results" MODIFIED="1538316244630" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/image_processing/scripts" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="image_processing.launch" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/image_processing/launch/image_processing.launch">
+      <file leaf-file-name="Calibration.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/image_processing/scripts/Calibration.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="53" selection-start-line="1" selection-start-column="53" selection-end-line="1" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="command_sender.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/hardware/scripts/command_sender.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+            <state relative-caret-position="251">
+              <caret line="373" column="39" selection-start-line="373" selection-start-column="29" selection-end-line="373" selection-end-column="39" />
               <folding>
-                <element signature="e#23#35#0" expanded="true" />
+                <element signature="e#40#50#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hardware/src/hardware/__init__.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="talker.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hardware/scripts/talker.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="listener.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hardware/scripts/listener.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="comport_mainboard.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py">
+      <file leaf-file-name="image_processing.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="53" column="36" lean-forward="true" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="threading.py" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python3.6/threading.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="737" column="6" selection-start-line="737" selection-start-column="6" selection-end-line="737" selection-end-column="6" />
+            <state relative-caret-position="114">
+              <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -91,6 +52,13 @@
     <findStrings>
       <find>conf</find>
       <find>loginfo</find>
+      <find>thresholded</find>
+      <find>Simpl</find>
+      <find>color_frame</find>
+      <find>depth_scale</find>
+      <find>depth_ima</find>
+      <find>bg_removed</find>
+      <find>depth_image</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -114,10 +82,14 @@
         <option value="$PROJECT_DIR$/image_processing/setup.py" />
         <option value="$PROJECT_DIR$/image_processing/launch/image_processing.launch" />
         <option value="$PROJECT_DIR$/image_processing/scripts/realsense_processing.py" />
-        <option value="$PROJECT_DIR$/image_processing/scripts/image_processing.py" />
         <option value="$PROJECT_DIR$/hardware/scripts/CommandSender_node.py" />
         <option value="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" />
         <option value="$PROJECT_DIR$/hardware/scripts/command_sender.py" />
+        <option value="$PROJECT_DIR$/image_processing/scripts/rahmen_detector.py" />
+        <option value="$PROJECT_DIR$/image_processing/scripts/contorreeero.py" />
+        <option value="$PROJECT_DIR$/image_processing/scripts/NodiNeNujni.py" />
+        <option value="$PROJECT_DIR$/image_processing/scripts/Calibration.py" />
+        <option value="$PROJECT_DIR$/image_processing/scripts/image_processing.py" />
       </list>
     </option>
   </component>
@@ -142,37 +114,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="ROBOTEX2018" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ROBOTEX2018" type="462c0819:PsiDirectoryNode" />
-              <item name="hardware" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ROBOTEX2018" type="462c0819:PsiDirectoryNode" />
-              <item name="hardware" type="462c0819:PsiDirectoryNode" />
-              <item name="scripts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ROBOTEX2018" type="462c0819:PsiDirectoryNode" />
-              <item name="hardware" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ROBOTEX2018" type="462c0819:PsiDirectoryNode" />
-              <item name="hardware" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="hardware" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
@@ -195,6 +142,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -225,6 +173,56 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager" selected="Python.image_processing">
+    <configuration name="image_processing" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="untitled" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/image_processing/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/image_processing/scripts/image_processing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="rahmen_detector" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="untitled" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/image_processing/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/image_processing/scripts/rahmen_detector.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.rahmen_detector" />
+      <item itemvalue="Python.image_processing" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.image_processing" />
+        <item itemvalue="Python.rahmen_detector" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -286,7 +284,14 @@
       <option name="project" value="LOCAL" />
       <updated>1537806377706</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="thrower works">
+      <created>1538157287499</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1538157287499</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -298,11 +303,11 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="File Transfer" order="8" visible="true" weight="0.06270627" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.33078602" />
-      <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Python Console" order="7" weight="0.32893288" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32946146" />
       <window_info active="true" anchor="right" id="Remote Host" order="3" visible="true" weight="0.21361372" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17321527" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.1776425" />
       <window_info anchor="right" id="R Packages" order="3" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="right" id="R Graphics" order="3" />
@@ -310,7 +315,7 @@
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.06490649" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -319,6 +324,33 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info active="true" anchor="right" id="Remote Host" order="3" visible="true" weight="0.21361372" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.1776425" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="R Graphics" order="4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
+      <window_info anchor="right" id="R Packages" order="5" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.06490649" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32946146" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="SciView" order="7" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="File Transfer" order="13" weight="0.06270627" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32893288" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -331,7 +363,8 @@
     <MESSAGE value="set up environment" />
     <MESSAGE value="connection to mainboard; simple commands" />
     <MESSAGE value="movement; cv drivers r set up" />
-    <option name="LAST_COMMIT_MESSAGE" value="movement; cv drivers r set up" />
+    <MESSAGE value="thrower works" />
+    <option name="LAST_COMMIT_MESSAGE" value="thrower works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -339,43 +372,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="46" column="33" lean-forward="true" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/scripts/command_sender.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="e#23#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/image_processing/launch/image_processing.launch">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="53" selection-start-line="1" selection-start-column="53" selection-end-line="1" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/scripts/command_sender.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
-          <folding>
-            <element signature="e#23#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="779">
@@ -636,32 +632,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/realsense_processing.py" />
     <entry file="file://$PROJECT_DIR$/hardware/scripts/CommandSender_node.py.save" />
-    <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hardware/scripts/listener.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file:///usr/lib/python3.6/threading.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
+        <state relative-caret-position="13889">
           <caret line="737" column="6" selection-start-line="737" selection-start-column="6" selection-end-line="737" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/scripts/CommandSender_node.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/CommandSender_node.py" />
     <entry file="file://$PROJECT_DIR$/hardware/src/hardware/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
+        <state relative-caret-position="931">
           <caret line="53" column="36" lean-forward="true" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
@@ -681,11 +668,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hardware/scripts/command_sender.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+        <state relative-caret-position="323">
+          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
           <folding>
             <element signature="e#23#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/rahmen_detector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="53" column="47" lean-forward="true" selection-start-line="53" selection-start-column="47" selection-end-line="53" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/contorreeero.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="103" column="8" lean-forward="true" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/Calibration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="373" column="39" selection-start-line="373" selection-start-column="29" selection-end-line="373" selection-end-column="39" />
+          <folding>
+            <element signature="e#40#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
         </state>
       </provider>
     </entry>

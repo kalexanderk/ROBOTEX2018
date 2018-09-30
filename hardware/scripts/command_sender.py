@@ -11,8 +11,8 @@ def command_sender(cmd):
     print("before")
     while not rospy.is_shutdown():
         # mboard.write(cmd)
-        # mboard.launch_wheel_motors(-20, 20, 20)
-        mboard.launch_thrower(1500)
+        mboard.launch_wheel_motors(-20, 20, 20)
+        # mboard.launch_thrower(1500)
         # mboard.get_wheel_speeds()
         #
         print("after")
