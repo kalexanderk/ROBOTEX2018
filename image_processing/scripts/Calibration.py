@@ -60,16 +60,16 @@ images = np.hstack((bg_removed, depth_colormap))
 
 #detectcontrl = detectcontrl[r[0]:r[1],r[2]:r[3]]
 
-lH = 57
+lH = 60
 lS = 100
 lV = 40
-hH = 72
+hH = 90
 hS = 255
 hV = 255
 
 
 bil = 0
-dil = 14
+dil = 0
 err = 0
 ByAreaBool = 1
 
@@ -88,7 +88,7 @@ minInertiaRatio = 0
 maxInertiaRatio = 100
 
 
-'''Settings
+
 #------------------------------------------
 pBAB = ByAreaBool
 pmA = minAreaf
@@ -285,7 +285,7 @@ cv2.createTrackbar("ByInertiaBool", 'detectcontrl', ByInertiaBool, 1, updateBIBo
 cv2.createTrackbar("minInertiaRatio", 'detectcontrl', minInertiaRatio, 100, updateMiIR)
 cv2.createTrackbar("maxInertiaRatio", 'detectcontrl', maxInertiaRatio, 100, updateMaIR)
 #------------------------------------------
-'''
+
 
 params = cv2.SimpleBlobDetector_Params()
 params.filterByArea = ByAreaBool
@@ -314,7 +314,7 @@ try:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-        '''Settings
+
         # ------------------------------------------
         if (pBAB != ByAreaBool or pmA != minAreaf or pMA != maxAreaf or
             pBCB != ByColorBool or pbC != blobColorf or pBCB != ByCircularityBool or
@@ -343,7 +343,7 @@ try:
              
                 detector = cv2.SimpleBlobDetector_create(params)
         # ------------------------------------------
-        '''
+
 
 
         # Get frameset of color and depth
@@ -381,13 +381,13 @@ try:
         hsv = cv2.cvtColor(images, cv2.COLOR_BGR2HSV)
         thresholded = cv2.inRange(hsv, lowerLimits, upperLimits)
 
-        '''
+
         thresholded = cv2.GaussianBlur(thresholded, (1 + (2*bil), 1 + (2*bil)), 0)
         erernel = np.ones((1+err,1+err),np.uint8)
         thresholded = cv2.erode(thresholded,erernel,iterations = 1)
         dilernel = np.ones((1+dil,1+dil),np.uint8)
         thresholded = cv2.dilate(thresholded,dilernel,iterations = 1)
-        '''
+
 
         outimage = cv2.bitwise_and(hsv, hsv, mask = thresholded)
         keypoints = detector.detect(outimage)

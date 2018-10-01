@@ -33,8 +33,8 @@ DEBUG = False
 # Important reading about cv2 color spaces:
 # https://docs.opencv.org/3.4.2/df/d9d/tutorial_py_colorspaces.html
 # Hue goes from 0 to 179
-BALL_COLOR_LOWER_BOUND = np.array([57, 100, 40])
-BALL_COLOR_UPPER_BOUND = np.array([72, 255, 255])
+BALL_COLOR_LOWER_BOUND = np.array([60, 100, 40])
+BALL_COLOR_UPPER_BOUND = np.array([90, 255, 255])
 
 # These aren't actually calibrated yet
 BLUE_BASKET_LOWER_BOUND = np.array([90, 100, 40])
@@ -127,9 +127,9 @@ class ImageProcessor:
         '''Find balls'''
         self.find_balls()
 
-        '''Find the distance to the ball center'''
-        ball_distances = self.get_center_distances('ball')
-        print(ball_distances)
+        '''Find the distances to the ball center'''
+        # ball_distances = self.get_center_distances('ball')
+        # print(ball_distances)
 
         self.send_objects()
 
@@ -221,9 +221,10 @@ class ImageProcessor:
         # message = "{}\n{}".format(ball, baskets)
         '''Coordinates'''
         try:
-            message = "({};{})".format(self.ball_keypoints[0].pt[0], self.ball_keypoints[0].pt[1])
+            message = "{};{};{}\n".format(self.ball_keypoints[0].pt[0],
+                                        self.ball_keypoints[0].pt[1], self.get_center_distances('ball')[0])
         except:
-            message = "(0;0)"
+            message = "None\n"
         self.object_publisher.publish(message)
 
 

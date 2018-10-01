@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="hardware" type="command_sender.py"
+        name="command_sender" output="screen" />
+</launch>
