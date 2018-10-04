@@ -14,11 +14,11 @@ bil = 0
 dil = 14
 err = 0
 ByAreaBool = 1
-minAreaf = 366
+minAreaf = 8
 maxAreaf = 100000
 ByColorBool = 1
 blobColorf = 255
-ByCircularityBool = 1
+ByCircularityBool = 0
 minCircularityf = 0
 maxCircularityf = 64
 ByConvexityBool = 0
@@ -33,8 +33,8 @@ DEBUG = False
 # Important reading about cv2 color spaces:
 # https://docs.opencv.org/3.4.2/df/d9d/tutorial_py_colorspaces.html
 # Hue goes from 0 to 179
-BALL_COLOR_LOWER_BOUND = np.array([60, 100, 40])
-BALL_COLOR_UPPER_BOUND = np.array([90, 255, 255])
+BALL_COLOR_LOWER_BOUND = np.array([36, 53, 47])
+BALL_COLOR_UPPER_BOUND = np.array([80, 144, 153])
 
 # These aren't actually calibrated yet
 BLUE_BASKET_LOWER_BOUND = np.array([90, 100, 40])
@@ -85,7 +85,7 @@ class ImageProcessor:
 
         '''We will be removing the background of objects more than
            clipping_distance_in_meters meters away'''
-        clipping_distance_in_meters = 1  # 1 meter
+        clipping_distance_in_meters = 3  # 3 meters
         self.clipping_distance = clipping_distance_in_meters / self.depth_scale
 
         '''Create an align object
@@ -127,17 +127,23 @@ class ImageProcessor:
         '''Find balls'''
         self.find_balls()
 
-        '''Find the distances to the ball center'''
-        # ball_distances = self.get_center_distances('ball')
-        # print(ball_distances)
+        '''Get the closest ball coordinates'''
+        self.closest_ball = self.get_closest_ball_coordinates()
+
+        # filedepth = open("workfile.txt", "w")
+        # for i in range(0, len(self.depth_image)):
+        #     for j in range(0, len(self.depth_image[0])):
+        #         filedepth.write(str(self.depth_image[i][j]) + " ")
+        #     filedepth.write("\n")
+        # filedepth.close()
 
         self.send_objects()
 
         if DEBUG:
-            rospy.loginfo(str(self.balls_in_frame))
+            rospy.loginfo(str(self.ball_keypoints))
+
 
     def find_balls(self):
-
         imgcopy = copy.deepcopy(self.hsv)
         thresholded = cv2.inRange(self.hsv, BALL_COLOR_LOWER_BOUND, BALL_COLOR_UPPER_BOUND)
         outimage = cv2.bitwise_and(self.hsv, self.hsv, mask=thresholded)
@@ -150,7 +156,6 @@ class ImageProcessor:
 
 
     def find_basket(self, color):
-
         imgcopy = copy.deepcopy(self.hsv)
         if color == 'blue':
             thresholded = cv2.inRange(self.hsv, BLUE_BASKET_LOWER_BOUND, BLUE_BASKET_UPPER_BOUND)
@@ -174,7 +179,6 @@ class ImageProcessor:
 
 
     def get_center_distances(self, type):
-
         distances = []
         '''Access the image pixels and create a 1D numpy array then add to list'''
         for i in range(len(self.ball_keypoints)):
@@ -185,44 +189,33 @@ class ImageProcessor:
             elif type == 'magenta_basket':
                 pt = self.magenta_basket_keypoints[i].pt
             distances.append(self.depth_image[pt[1], pt[0]]*self.depth_scale)
-        distances = np.sort(distances)
-
         return distances
 
-    # def get_largest_ball(self):
-    #     debug_log(str(len(self.balls_in_frame)) + " balls found")
-    #
-    #     # Only send the horizontal location of the biggest ball for
-    #     # now
-    #     if len(self.balls_in_frame) > 0:
-    #         max_size = 0
-    #         max_ball = ()
-    #         max_ball_distance = 0
-    #         for ((x, y, width, height), distance) in self.balls_in_frame:
-    #             if (width * height) > max_size:
-    #                 max_size = width * height
-    #                 max_ball = (x, y, width, height)
-    #                 max_ball_distance = distance
-    #         (x, y, width, height) = max_ball
-    #         rospy.loginfo("Ball: " + str(max_ball))
-    #         ball_pos = str(((x + (width / 2)) / float(WIDTH)) - 0.5)
-    #         rospy.loginfo("Max ball " + str(max_ball))
-    #         debug_log("Ball at " + ball_pos)
-    #         rospy.loginfo("Distance = " + str(distance))
-    #         return ball_pos + ":" + str(max_ball_distance)
-    #     else:
-    #         return "None"
+
+    def get_closest_ball_coordinates(self):
+        debug_log(str(len(self.ball_keypoints)) + " balls found")
+        # print number of detected "balls"
+        print(len(self.ball_keypoints))
+        if len(self.ball_keypoints) > 0:
+            distances = self.get_center_distances('ball')
+            print(distances)
+            try:
+                # return self.ball_keypoints[distances.index(max(distances))]
+                return self.ball_keypoints[distances.index(min(distances))]
+            except:
+                return np.nan
+
 
     def send_objects(self):
-
         '''Distances'''
         # ball = self.get_center_distances()
         # baskets = "{}:{}".format(0, 0)
         # message = "{}\n{}".format(ball, baskets)
         '''Coordinates'''
         try:
-            message = "{};{};{}\n".format(self.ball_keypoints[0].pt[0],
-                                        self.ball_keypoints[0].pt[1], self.get_center_distances('ball')[0])
+            print(self.closest_ball)
+            message = "{};{}\n".format(self.closest_ball.pt[0],
+                                       self.closest_ball.pt[1])
         except:
             message = "None\n"
         self.object_publisher.publish(message)
