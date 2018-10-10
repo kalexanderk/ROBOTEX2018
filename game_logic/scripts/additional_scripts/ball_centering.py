@@ -39,6 +39,7 @@ def callback_function(message):
          mboard.launch_wheel_motors(*coords)
         elif x > 670 and stop_f==False:
             coords = wheels_move(0, 0, 5)
+
             mboard.launch_wheel_motors(*coords)
         else:
             stop_f = True
@@ -50,7 +51,15 @@ def callback_function(message):
 if __name__ == "__main__":
     mboard = ComportMainboard()
     mboard.run()
+    #mboard.launch_thrower(1200)
     stop_f = False
+
+
+
+
+
+
+
     rospy.init_node("ball_centering")
     rospy.Subscriber("image_processing/objects", String, callback_function)
     rospy.spin()

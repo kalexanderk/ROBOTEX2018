@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# image_processing.py
 # Reads from the camera and writes object positions to the objects channel
 
 import rospy
@@ -85,7 +84,7 @@ class ImageProcessor:
 
         '''We will be removing the background of objects more than
            clipping_distance_in_meters meters away'''
-        clipping_distance_in_meters = 3  # 3 meters
+        clipping_distance_in_meters = 1  # 3 meters
         self.clipping_distance = clipping_distance_in_meters / self.depth_scale
 
         '''Create an align object
@@ -105,7 +104,7 @@ class ImageProcessor:
         aligned_frames = self.align.process(frames)
 
         '''Get aligned frames'''
-        aligned_depth_frame = aligned_frames.get_depth_frame()  # aligned_depth_frame is a 640x480 depth image
+        aligned_depth_frame = aligned_frames.get_depth_frame()  # aligned_depth_frame is a 1280x720 depth image
         color_frame = aligned_frames.get_color_frame()
 
         '''Validate that both frames are valid'''
@@ -119,7 +118,8 @@ class ImageProcessor:
         grey_color = 153
         depth_image_3d = np.dstack(
             (self.depth_image, self.depth_image, self.depth_image))  # depth image is 1 channel, color is 3 channels
-        bg_removed = np.where((depth_image_3d > self.clipping_distance) | (depth_image_3d <= 0), grey_color, color_image)
+        bg_removed = np.where((depth_image_3d > self.clipping_distance) | (depth_image_3d <= 0), grey_color,
+                              color_image)
 
         '''Render images'''
         self.hsv = cv2.cvtColor(color_image, cv2.COLOR_BGR2HSV)
@@ -130,18 +130,20 @@ class ImageProcessor:
         '''Get the closest ball coordinates'''
         self.closest_ball = self.get_closest_ball_coordinates()
 
-        # filedepth = open("workfile.txt", "w")
-        # for i in range(0, len(self.depth_image)):
-        #     for j in range(0, len(self.depth_image[0])):
-        #         filedepth.write(str(self.depth_image[i][j]) + " ")
-        #     filedepth.write("\n")
-        # filedepth.close()
+        # global flag_
+        # if flag_:
+        #     filedepth = open("workfile.txt", "w")
+        #     for i in range(0, len(self.depth_image)):
+        #         for j in range(0, len(self.depth_image[0])):
+        #             filedepth.write(str(self.depth_image[i][j]) + " ")
+        #         filedepth.write("\n")
+        #     filedepth.close()
+        #     flag_ = False
 
         self.send_objects()
 
         if DEBUG:
             rospy.loginfo(str(self.ball_keypoints))
-
 
     def find_balls(self):
         imgcopy = copy.deepcopy(self.hsv)
@@ -153,7 +155,6 @@ class ImageProcessor:
         #                             cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         # cv2.imshow('threshold', outimage)
         # cv2.imshow('original', imgcopy)
-
 
     def find_basket(self, color):
         imgcopy = copy.deepcopy(self.hsv)
@@ -177,20 +178,38 @@ class ImageProcessor:
         # cv2.imshow('threshold', outimage)
         # cv2.imshow('original', imgcopy)
 
-
     def get_center_distances(self, type):
         distances = []
         '''Access the image pixels and create a 1D numpy array then add to list'''
         for i in range(len(self.ball_keypoints)):
             if type == 'ball':
-                pt = self.ball_keypoints[i].pt
+                pt = [int(self.ball_keypoints[i].pt[0]), int(self.ball_keypoints[i].pt[1])]
             elif type == 'blue_basket':
                 pt = self.blue_basket_keypoints[i].pt
             elif type == 'magenta_basket':
                 pt = self.magenta_basket_keypoints[i].pt
-            distances.append(self.depth_image[pt[1], pt[0]]*self.depth_scale)
-        return distances
 
+            loc = []
+            for ix in range(pt[0] - 3, pt[0] + 4):
+                if ix > 1279 or ix < 0:
+                    continue
+                for iy in range(pt[1] - 3, pt[1] + 4):
+                    if iy > 719 or iy < 0:
+                        continue
+                    if self.depth_image[iy, ix] != 0:
+                        loc.append(self.depth_image[iy, ix] * self.depth_scale)
+
+            if len(loc) == 0:
+                distances.append(99999900)
+            else:
+                a = 0
+                for el in loc:
+                    a += el
+
+                print("lel", str(a))
+                print("kek", str(a / len(loc)))
+                distances.append(a / len(loc))
+        return distances
 
     def get_closest_ball_coordinates(self):
         debug_log(str(len(self.ball_keypoints)) + " balls found")
@@ -204,7 +223,6 @@ class ImageProcessor:
                 return self.ball_keypoints[distances.index(min(distances))]
             except:
                 return np.nan
-
 
     def send_objects(self):
         '''Distances'''
@@ -223,6 +241,8 @@ class ImageProcessor:
 
 if __name__ == "__main__":
     try:
+        flag_ = True
+
         rospy.init_node("image_processor")
 
         params = cv2.SimpleBlobDetector_Params()

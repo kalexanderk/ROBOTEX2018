@@ -1,4 +1,4 @@
 <launch>
-  <node pkg="hardware" type="command_sender.py"
-        name="command_sender" output="screen" />
+  <node pkg="hardware" type="serial_communication.py"
+        name="serial_communication" output="screen" />
 </launch>

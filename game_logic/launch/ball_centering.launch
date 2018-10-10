@@ -1,6 +1,0 @@
-<launch>
-    <node pkg="game_logic" type="ball_centering.py"
-        name="ball_centering" output="screen" />
-    <node pkg="image_processing" type="image_processing.py"
-        name="image_processing" output="screen" />
-</launch>
