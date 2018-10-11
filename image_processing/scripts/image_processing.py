@@ -206,20 +206,19 @@ class ImageProcessor:
                 for el in loc:
                     a += el
 
-                print("lel", str(a))
-                print("kek", str(a / len(loc)))
+                # print("lel", str(a))
+                # print("Distance", str(a / len(loc)))
                 distances.append(a / len(loc))
         return distances
 
     def get_closest_ball_coordinates(self):
         debug_log(str(len(self.ball_keypoints)) + " balls found")
-        # print number of detected "balls"
-        print(len(self.ball_keypoints))
         if len(self.ball_keypoints) > 0:
             distances = self.get_center_distances('ball')
-            print(distances)
+            # print("Center distances", distances)
             try:
                 # return self.ball_keypoints[distances.index(max(distances))]
+                print('Closest ball', self.ball_keypoints[distances.index(min(distances))], min(distances), '\n')
                 return self.ball_keypoints[distances.index(min(distances))]
             except:
                 return np.nan
@@ -231,7 +230,6 @@ class ImageProcessor:
         # message = "{}\n{}".format(ball, baskets)
         '''Coordinates'''
         try:
-            print(self.closest_ball)
             message = "{};{}\n".format(self.closest_ball.pt[0],
                                        self.closest_ball.pt[1])
         except:
