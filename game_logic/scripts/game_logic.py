@@ -32,15 +32,15 @@ class GameLogic():
     # маємо умову, що м'яч має знаходитися за 10 чи менше см від робота посередині. Лише потім ми його хапаємо і
     # кидаємо до кошика
     def approach_and_throw_ball(self):
-        ball_center = 275
-        basket_center = 300 #WE HAVE @ FRAMES FOR BASKET AND FOR BALL; WE DEFINE OUR COLOR FOR BASKET IN IMAGE_PROCESSING
+        ball_center = 640
+        basket_center = 640 #WE HAVE @ FRAMES FOR BASKET AND FOR BALL; WE DEFINE OUR COLOR FOR BASKET IN IMAGE_PROCESSING
         if self.ball_x is None:
             self.rotating()
         #зупинилися на певній відстані від м'яча, далі маючи м'яч в центрі робимо коловий рух навколо нього доти,
         #доки кошик не опиниться в центрі теж. опісля рухаємося повільно до м'яча (щоп'ять секунд пеервіряючи близькість
         #до м'яча) із увімкненим thrower'ом і таким чином стріляємо до кошика (поки не визначили з якою швидкістю обрертати
         #thrower)
-        elif (self.ball_y > 160 and self.ball_y < 180): #CALIBRATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        elif (self.ball_y > 680): #CALIBRATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! when it's closer than 10 cm
             self.rounding()
             print('do rounding')
             if (self.basket_x < basket_center + 20 and self.basket_x > basket_center - 20): #CALIBRATE!!!!!!!!!!!!!!!!!!!!!!!!!!
