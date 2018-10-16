@@ -4,6 +4,10 @@ import cv2
 import numpy as np
 import copy
 import pyrealsense2 as rs
+import os
+
+os.system('v4l2-ctl --device=/dev/video2 -c white_balance_temperature_auto=0')
+os.system('v4l2-ctl --device=/dev/video2 -c exposure_auto_priority=0')
 
 # Create a pipeline
 pipeline = rs.pipeline()

@@ -15,9 +15,9 @@ WHEEL_DISTANCE_FROM_CENTER = 0.133
 ROBOT_SPEED = 30
 ROBOT_TURN_SPEED = 50
 
-WHEEL1 = 60
-WHEEL2 = 300
-WHEEL3 = 180
+# WHEEL1 = 60
+# WHEEL2 = 300
+# WHEEL3 = 180
 
 
 class SerialCommunication():
@@ -36,7 +36,7 @@ class SerialCommunication():
         self.wheel_three_speed = 0
 
 
-    # def get_wheels_speeds(direction_deg, linear_speed, angular_velocity=0):
+    # def get_wheels_speeds(linear_speed, direction_deg, angular_velocity=0):
     #     V1 = linear_speed * math.sin(math.radians(WHEEL1 - direction_deg))  # |
     #     V2 = linear_speed * math.sin(math.radians(WHEEL2 - direction_deg))  # 3
     #     V3 = linear_speed * math.sin(math.radians(WHEEL3 - direction_deg))
@@ -75,7 +75,8 @@ class SerialCommunication():
                                       WHEEL_DISTANCE_FROM_CENTER,
                                       angular_speed)
 
-        self.set_wheels(round(w3, 2), round(w1, 2), round(w2, 2))
+        self.set_wheels(round(w1, 0), round(w2, 0), round(w3, 0))
+        #or round(%f,2)
     ''''''
 
     '''End of the omnimotion'''

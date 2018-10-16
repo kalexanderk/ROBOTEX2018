@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import rospy
 from time import time,sleep
 from geometry_msgs.msg import Point
@@ -42,7 +43,7 @@ class GameLogic():
         #доки кошик не опиниться в центрі теж. опісля рухаємося повільно до м'яча (щоп'ять секунд пеервіряючи близькість
         #до м'яча) із увімкненим thrower'ом і таким чином стріляємо до кошика (поки не визначили з якою швидкістю обрертати
         #thrower)
-        elif (self.ball_y > 680): #CALIBRATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! when it's closer than 10 cm
+        elif (self.ball_y > 660): #CALIBRATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! when it's closer than 10 cm
             self.rounding()
             print('do rounding')
             if (self.basket_x < basket_center + 20 and self.basket_x > basket_center - 20): #CALIBRATE!!!!!!!!!!!!!!!!!!!!!!!!!!

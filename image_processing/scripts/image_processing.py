@@ -8,7 +8,7 @@ import numpy as np
 import cv2
 import pyrealsense2 as rs
 import copy
-
+import os
 
 f = open("values.txt", "r")
 
@@ -67,6 +67,9 @@ def debug_log(text):
 class ImageProcessor:
 
     def __init__(self):
+
+        os.system('v4l2-ctl --device=/dev/video2 -c white_balance_temperature_auto=0')
+        os.system('v4l2-ctl --device=/dev/video2 -c exposure_auto_priority=0')
 
         self.object_publisher = rospy.Publisher(
             "image_processing/objects", String, queue_size=10)
