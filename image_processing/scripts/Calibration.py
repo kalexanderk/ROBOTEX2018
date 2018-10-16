@@ -60,32 +60,36 @@ images = np.hstack((bg_removed, depth_colormap))
 
 #detectcontrl = detectcontrl[r[0]:r[1],r[2]:r[3]]
 
-lH = 60
-lS = 100
-lV = 40
-hH = 90
-hS = 255
-hV = 255
+f = open("/home/megatron/.ros/values.txt", "r")
+
+lH = int(f.readline().strip('\n'))
+lS = int(f.readline().strip('\n'))
+lV = int(f.readline().strip('\n'))
+hH = int(f.readline().strip('\n'))
+hS = int(f.readline().strip('\n'))
+hV = int(f.readline().strip('\n'))
 
 
-bil = 0
-dil = 0
-err = 0
-ByAreaBool = 1
+bil = int(f.readline().strip('\n'))
+dil = int(f.readline().strip('\n'))
+err = int(f.readline().strip('\n'))
 
-minAreaf = 366
-maxAreaf = 100000
-ByColorBool = 1
-blobColorf = 255
-ByCircularityBool = 1 
-minCircularityf = 0
-maxCircularityf = 64
-ByConvexityBool = 0 
-minConvexityf = 0
-maxConvexityf = 100
-ByInertiaBool = 0
-minInertiaRatio = 0
-maxInertiaRatio = 100
+ByAreaBool = int(f.readline().strip('\n'))
+minAreaf = int(f.readline().strip('\n'))
+maxAreaf = int(f.readline().strip('\n'))
+ByColorBool = int(f.readline().strip('\n'))
+blobColorf = int(f.readline().strip('\n'))
+ByCircularityBool = int(f.readline().strip('\n'))
+minCircularityf = int(f.readline().strip('\n'))
+maxCircularityf = int(f.readline().strip('\n'))
+ByConvexityBool = int(f.readline().strip('\n'))
+minConvexityf = int(f.readline().strip('\n'))
+maxConvexityf = int(f.readline().strip('\n'))
+ByInertiaBool =int(f.readline().strip('\n'))
+minInertiaRatio = int(f.readline().strip('\n'))
+maxInertiaRatio = int(f.readline().strip('\n'))
+
+f.close()
 
 
 
@@ -398,11 +402,41 @@ try:
         # cv2.imshow('detectcontrl', detectcontrl)
 
         if cv2.waitKey(1) & 0xFF == ord('s'):
-            pipeline.stop()
-            cv2.destroyAllWindows()
+
+
             break
 
 finally:
-    pipeline.stop()   
+    f = open("/home/megatron/.ros/values.txt", "w")
+
+    f.write(str(lH) + "\n")
+    f.write(str(lS) + "\n")
+    f.write(str(lV) + "\n")
+    f.write(str(hH) + "\n")
+    f.write(str(hS) + "\n")
+    f.write(str(hV) + "\n")
+
+    f.write(str(bil) + "\n")
+    f.write(str(dil) + "\n")
+    f.write(str(err) + "\n")
+
+    f.write(str(ByAreaBool) + "\n")
+    f.write(str(minAreaf) + "\n")
+    f.write(str(maxAreaf) + "\n")
+    f.write(str(ByColorBool) + "\n")
+    f.write(str(blobColorf) + "\n")
+    f.write(str(ByCircularityBool) + "\n")
+    f.write(str(minCircularityf) + "\n")
+    f.write(str(maxCircularityf) + "\n")
+    f.write(str(ByConvexityBool) + "\n")
+    f.write(str(minConvexityf) + "\n")
+    f.write(str(maxConvexityf) + "\n")
+    f.write(str(ByInertiaBool) + "\n")
+    f.write(str(minInertiaRatio) + "\n")
+    f.write(str(maxInertiaRatio) + "\n")
+
+    f.close()
+
+    pipeline.stop()
     cv2.destroyAllWindows()
 

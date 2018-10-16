@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 # Reads from the camera and writes object positions to the objects channel
 
 import rospy
@@ -8,32 +9,47 @@ import cv2
 import pyrealsense2 as rs
 import copy
 
-# Constants: TODO put this in a configuration file
-bil = 0
-dil = 14
-err = 0
-ByAreaBool = 1
-minAreaf = 8
-maxAreaf = 100000
-ByColorBool = 1
-blobColorf = 255
-ByCircularityBool = 0
-minCircularityf = 0
-maxCircularityf = 64
-ByConvexityBool = 0
-minConvexityf = 0
-maxConvexityf = 100
-ByInertiaBool = 0
-minInertiaRatio = 0
-maxInertiaRatio = 100
+
+f = open("values.txt", "r")
+
+lH = int(f.readline().strip('\n'))
+lS = int(f.readline().strip('\n'))
+lV = int(f.readline().strip('\n'))
+hH = int(f.readline().strip('\n'))
+hS = int(f.readline().strip('\n'))
+hV = int(f.readline().strip('\n'))
+
+
+bil = int(f.readline().strip('\n'))
+dil = int(f.readline().strip('\n'))
+err = int(f.readline().strip('\n'))
+
+ByAreaBool = int(f.readline().strip('\n'))
+minAreaf = int(f.readline().strip('\n'))
+maxAreaf = int(f.readline().strip('\n'))
+ByColorBool = int(f.readline().strip('\n'))
+blobColorf = int(f.readline().strip('\n'))
+ByCircularityBool = int(f.readline().strip('\n'))
+minCircularityf = int(f.readline().strip('\n'))
+maxCircularityf = int(f.readline().strip('\n'))
+ByConvexityBool = int(f.readline().strip('\n'))
+minConvexityf = int(f.readline().strip('\n'))
+maxConvexityf = int(f.readline().strip('\n'))
+ByInertiaBool =int(f.readline().strip('\n'))
+minInertiaRatio = int(f.readline().strip('\n'))
+maxInertiaRatio = int(f.readline().strip('\n'))
+
+f.close()
 
 DEBUG = False
 
 # Important reading about cv2 color spaces:
 # https://docs.opencv.org/3.4.2/df/d9d/tutorial_py_colorspaces.html
 # Hue goes from 0 to 179
-BALL_COLOR_LOWER_BOUND = np.array([36, 53, 47])
-BALL_COLOR_UPPER_BOUND = np.array([80, 144, 153])
+BALL_COLOR_LOWER_BOUND = np.array([lH, lS, lV])
+BALL_COLOR_UPPER_BOUND = np.array([hH, hS, hV])
+
+
 
 # These aren't actually calibrated yet
 BLUE_BASKET_LOWER_BOUND = np.array([90, 100, 40])
@@ -80,11 +96,11 @@ class ImageProcessor:
         '''Getting the depth sensor's depth scale (see rs-align example for explanation)'''
         depth_sensor = self.profile.get_device().first_depth_sensor()
         self.depth_scale = depth_sensor.get_depth_scale()
-        print("Depth Scale is: ", self.depth_scale)
+        # print("Depth Scale is: ", self.depth_scale)
 
         '''We will be removing the background of objects more than
            clipping_distance_in_meters meters away'''
-        clipping_distance_in_meters = 1  # 3 meters
+        clipping_distance_in_meters = 3 # 3 meters
         self.clipping_distance = clipping_distance_in_meters / self.depth_scale
 
         '''Create an align object
@@ -218,7 +234,7 @@ class ImageProcessor:
             # print("Center distances", distances)
             try:
                 # return self.ball_keypoints[distances.index(max(distances))]
-                print('Closest ball', self.ball_keypoints[distances.index(min(distances))], min(distances), '\n')
+                # print('Closest ball', self.ball_keypoints[distances.index(min(distances))], min(distances), '\n')
                 return self.ball_keypoints[distances.index(min(distances))]
             except:
                 return np.nan

@@ -1,5 +1,5 @@
-
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 import rospy
 from time import time,sleep
 from geometry_msgs.msg import Point
@@ -21,13 +21,15 @@ class GameLogic():
 
     def new_object_callback_ball(self, message):
         position = message.data.split("\n")[0]
-        self.ball_x = float(position.split(";")[0])
-        self.ball_y = float(position.split(";")[1])
+        if position != "None":
+            self.ball_x = float(position.split(";")[0])
+            self.ball_y = float(position.split(";")[1])
 
     def new_object_callback_basket(self, message):
         position = message.data.split("\n")[1]
-        self.ball_x = float(position.split(";")[0])
-        self.ball_y = float(position.split(";")[1])
+        if position != "None":
+            self.ball_x = float(position.split(";")[0])
+            self.ball_y = float(position.split(";")[1])
 
     # маємо умову, що м'яч має знаходитися за 10 чи менше см від робота посередині. Лише потім ми його хапаємо і
     # кидаємо до кошика

@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import rospy
 import math
 import hardware.comport_mainboard as mainboard
@@ -20,13 +22,12 @@ WHEEL3 = 180
 
 class SerialCommunication():
     def __init__(self):
+        self.main_board = mainboard.ComportMainboard()
+        self.main_board.run()
 
         #слухаємо команди від game_logic
         self.sub = rospy.Subscriber("robot_movement", Point, self.new_object_callback_wheels)
         self.sub = rospy.Subscriber("thrower", Int16, self.new_object_callback_thrower)
-
-        self.main_board = mainboard.ComportMainboard()
-        self.main_board.run()
 
         '''Omnimotion starts from here'''
 
@@ -58,7 +59,7 @@ class SerialCommunication():
         self.wheel_one_speed = w1
         self.wheel_two_speed = w2
         self.wheel_three_speed = w3
-        self.main_board.launch_wheel_motors(self.wheel_one_speed, self.wheel_two_speed, self.wheel_three_speed,0)
+        self.main_board.launch_wheel_motors(self.wheel_one_speed, self.wheel_two_speed, self.wheel_three_speed)
 
     def set_movement(self, linear_speed, direction_degrees, angular_speed):
         w1 = self.get_speed_for_wheel(WHEEL_ONE_ANGLE, direction_degrees,
@@ -74,7 +75,7 @@ class SerialCommunication():
                                       WHEEL_DISTANCE_FROM_CENTER,
                                       angular_speed)
 
-        self.set_wheels(round(w1, 2), round(w2, 2), round(w3, 2))
+        self.set_wheels(round(w3, 2), round(w1, 2), round(w2, 2))
     ''''''
 
     '''End of the omnimotion'''
