@@ -4,8 +4,9 @@
     <list default="true" id="d0ae755f-4fde-422a-9ac4-d113e41b80ee" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_logic/scripts/game_logic.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_logic/scripts/game_logic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hardware/scripts/additional_scripts/command_sender.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/scripts/command_sender.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hardware/scripts/serial_communication.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/scripts/serial_communication.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_processing/scripts/Calibration.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_processing/scripts/Calibration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image_processing/scripts/image_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_processing/scripts/image_processing.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,59 +25,35 @@
       <file leaf-file-name="image_processing.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Calibration.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/image_processing/scripts/Calibration.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+            <state relative-caret-position="279">
+              <caret line="287" column="28" selection-start-line="287" selection-start-column="28" selection-end-line="287" selection-end-column="28" />
               <folding>
-                <element signature="e#40#50#0" expanded="true" />
+                <element signature="e#122#134#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="values_.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/image_processing/scripts/values_.txt">
+      <file leaf-file-name="game_logic.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+            <state relative-caret-position="284">
+              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+              <folding>
+                <element signature="e#48#60#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serial_communication.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serial_communication.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_communication.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="78" column="23" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
+            <state relative-caret-position="360">
+              <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
               <folding>
                 <element signature="e#47#59#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="general.launch" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/general/launch/general.launch">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="game_logic.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="82" column="46" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -128,24 +105,24 @@
         <option value="$PROJECT_DIR$/image_processing/launch/image_processing.launch" />
         <option value="$PROJECT_DIR$/image_processing/scripts/realsense_processing.py" />
         <option value="$PROJECT_DIR$/hardware/scripts/CommandSender_node.py" />
-        <option value="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" />
         <option value="$PROJECT_DIR$/image_processing/scripts/rahmen_detector.py" />
         <option value="$PROJECT_DIR$/image_processing/scripts/contorreeero.py" />
         <option value="$PROJECT_DIR$/image_processing/scripts/NodiNeNujni.py" />
         <option value="$PROJECT_DIR$/game_logic/scripts/play.py" />
-        <option value="$PROJECT_DIR$/hardware/scripts/command_sender.py" />
         <option value="$PROJECT_DIR$/game_logic/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/game_logic/launch/ball_centering.launch" />
         <option value="$PROJECT_DIR$/game_logic/scripts/ball_centering.py" />
         <option value="$PROJECT_DIR$/game_logic/launch/game_logic.launch" />
         <option value="$PROJECT_DIR$/game_logic/scripts/additional_scripts/ball_centering.py" />
-        <option value="$PROJECT_DIR$/hardware/launch/hardware.launch" />
         <option value="$PROJECT_DIR$/general/launch/general.launch" />
         <option value="$PROJECT_DIR$/image_processing/scripts/values.txt" />
         <option value="$PROJECT_DIR$/image_processing/scripts/Calibration.py" />
+        <option value="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" />
+        <option value="$PROJECT_DIR$/hardware/scripts/command_sender.py" />
+        <option value="$PROJECT_DIR$/hardware/launch/hardware.launch" />
         <option value="$PROJECT_DIR$/image_processing/scripts/image_processing.py" />
-        <option value="$PROJECT_DIR$/game_logic/scripts/game_logic.py" />
         <option value="$PROJECT_DIR$/hardware/scripts/serial_communication.py" />
+        <option value="$PROJECT_DIR$/game_logic/scripts/game_logic.py" />
       </list>
     </option>
   </component>
@@ -170,6 +147,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -208,7 +186,20 @@
               <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="ROBOTEX2018" type="462c0819:PsiDirectoryNode" />
               <item name="hardware" type="462c0819:PsiDirectoryNode" />
+              <item name="launch" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ROBOTEX2018" type="462c0819:PsiDirectoryNode" />
+              <item name="hardware" type="462c0819:PsiDirectoryNode" />
               <item name="scripts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ROBOTEX2018" type="462c0819:PsiDirectoryNode" />
+              <item name="hardware" type="462c0819:PsiDirectoryNode" />
+              <item name="scripts" type="462c0819:PsiDirectoryNode" />
+              <item name="additional_scripts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ROBOTEX2018" type="b2602c69:ProjectViewProjectNode" />
@@ -242,7 +233,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -258,13 +248,14 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/hardware/scripts" />
       <recent name="$PROJECT_DIR$/image_processing/scripts/additional_scripts" />
       <recent name="$PROJECT_DIR$/hardware/scripts/additional_scripts" />
       <recent name="$PROJECT_DIR$/game_logic/scripts/old_files" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -438,12 +429,18 @@
       <option name="project" value="LOCAL" />
       <updated>1539622071917</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="calibration is done">
+      <created>1539724966106</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1539724966106</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="59" y="25" width="1861" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
@@ -454,7 +451,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32946146" />
       <window_info active="true" anchor="right" id="Remote Host" order="3" visible="true" weight="0.21472053" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18206973" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18926397" />
       <window_info anchor="right" id="R Packages" order="7" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="right" id="R Graphics" order="4" />
@@ -489,7 +486,8 @@
     <MESSAGE value="rotation and ball detection many balls" />
     <MESSAGE value="alles_ist_gemacht" />
     <MESSAGE value="calibration is needed" />
-    <option name="LAST_COMMIT_MESSAGE" value="calibration is needed" />
+    <MESSAGE value="calibration is done" />
+    <option name="LAST_COMMIT_MESSAGE" value="calibration is done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -497,6 +495,71 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1482">
+          <caret line="82" column="46" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_communication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1444">
+          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+          <folding>
+            <element signature="e#47#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/Calibration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+          <folding>
+            <element signature="e#40#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/values_.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/general/launch/general.launch">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1482">
+          <caret line="82" column="46" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_communication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1406">
+          <caret line="78" column="23" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
+          <folding>
+            <element signature="e#47#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -580,7 +643,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/scripts/additional_scripts/command_sender.py">
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/command_sender.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/game_logic/scripts/additional_scripts/ball_centering.py">
@@ -607,7 +670,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/scripts/additional_scripts/command_sender.py">
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/command_sender.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/game_logic/scripts/additional_scripts/ball_centering.py">
@@ -634,7 +697,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/scripts/additional_scripts/command_sender.py">
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/command_sender.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/game_logic/scripts/additional_scripts/ball_centering.py">
@@ -689,20 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/scripts/additional_scripts/command_sender.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/launch/hardware.launch">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="3" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/launch/image_processing.launch">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -725,11 +774,6 @@
         <state relative-caret-position="-451" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-609" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/values_.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -739,25 +783,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/Calibration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+        <state relative-caret-position="171">
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
           <folding>
             <element signature="e#40#50#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="82" column="46" selection-start-line="82" selection-start-column="46" selection-end-line="82" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -768,12 +798,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/launch/hardware.launch">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="9" lean-forward="true" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/command_sender.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+          <folding>
+            <element signature="e#23#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="50" column="48" lean-forward="true" selection-start-line="50" selection-start-column="48" selection-end-line="50" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="287" column="28" selection-start-line="287" selection-start-column="28" selection-end-line="287" selection-end-column="28" />
+          <folding>
+            <element signature="e#122#134#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_communication.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="78" column="23" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
+        <state relative-caret-position="360">
+          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
           <folding>
             <element signature="e#47#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+          <folding>
+            <element signature="e#48#60#0" expanded="true" />
           </folding>
         </state>
       </provider>

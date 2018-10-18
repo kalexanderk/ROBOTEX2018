@@ -22,8 +22,10 @@ ROBOT_TURN_SPEED = 50
 
 class SerialCommunication():
     def __init__(self):
+        self.starter = False
         self.main_board = mainboard.ComportMainboard()
         self.main_board.run()
+        self.started = True
 
         #слухаємо команди від game_logic
         self.sub = rospy.Subscriber("robot_movement", Point, self.new_object_callback_wheels)
@@ -34,16 +36,6 @@ class SerialCommunication():
         self.wheel_one_speed = 0
         self.wheel_two_speed = 0
         self.wheel_three_speed = 0
-
-
-    # def get_wheels_speeds(linear_speed, direction_deg, angular_velocity=0):
-    #     V1 = linear_speed * math.sin(math.radians(WHEEL1 - direction_deg))  # |
-    #     V2 = linear_speed * math.sin(math.radians(WHEEL2 - direction_deg))  # 3
-    #     V3 = linear_speed * math.sin(math.radians(WHEEL3 - direction_deg))
-    #     V1 += angular_velocity
-    #     V2 += angular_velocity
-    #     V3 += angular_velocity
-    #     return (int(round(V1)), int(round(V2)), int(round(V3)))
 
     ''''''
     #TRY TO USE THE ABOVE FUNCTION INSTEAD
@@ -87,11 +79,16 @@ class SerialCommunication():
     def new_object_callback_thrower(self, speed):
         self.main_board.launch_thrower(speed.data)
 
+    def read_command(self):
+        if self.started:
+            self.main_board.read()
+
 
 if __name__ == '__main__':
     rospy.init_node('serial_communication', anonymous=True)
-    rate = rospy.Rate(17)  # 2Hz
+    rate = rospy.Rate(60)  # 2Hz
     serial_communication = SerialCommunication()
 
     while not rospy.is_shutdown():
+        serial_communication.read_command()
         rate.sleep()

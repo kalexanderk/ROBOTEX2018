@@ -285,7 +285,7 @@ if __name__ == "__main__":
 
         camera = ImageProcessor()
         camera.run()
-        rate = rospy.Rate(5)
+        rate = rospy.Rate(60)
 
         while not rospy.is_shutdown():
             camera.process_image()

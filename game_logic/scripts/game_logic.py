@@ -8,6 +8,7 @@ from std_msgs.msg import String
 from std_msgs.msg import Int16
 
 class GameLogic():
+
     def __init__(self):
         #отримуємо повідомлення про обробку зображення
         self.image_processing = rospy.Subscriber("image_processing/objects", String, self.new_object_callback_ball)
@@ -20,6 +21,9 @@ class GameLogic():
         self.basket_x = None
         self.basket_y = None
 
+        self.basket_x = 640
+        self.basket_y = 640
+
     def new_object_callback_ball(self, message):
         position = message.data.split("\n")[0]
         if position != "None":
@@ -29,8 +33,8 @@ class GameLogic():
     def new_object_callback_basket(self, message):
         position = message.data.split("\n")[1]
         if position != "None":
-            self.ball_x = float(position.split(";")[0])
-            self.ball_y = float(position.split(";")[1])
+            self.basket_x = float(position.split(";")[0])
+            self.basket_y = float(position.split(";")[1])
 
     # маємо умову, що м'яч має знаходитися за 10 чи менше см від робота посередині. Лише потім ми його хапаємо і
     # кидаємо до кошика
@@ -43,10 +47,10 @@ class GameLogic():
         #доки кошик не опиниться в центрі теж. опісля рухаємося повільно до м'яча (щоп'ять секунд пеервіряючи близькість
         #до м'яча) із увімкненим thrower'ом і таким чином стріляємо до кошика (поки не визначили з якою швидкістю обрертати
         #thrower)
-        elif (self.ball_y > 660): #CALIBRATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! when it's closer than 10 cm
+        elif (self.ball_y > 660): # when it's closer than 10 cm
             self.rounding()
             print('do rounding')
-            if (self.basket_x < basket_center + 20 and self.basket_x > basket_center - 20): #CALIBRATE!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (self.basket_x < basket_center + 50 and self.basket_x > basket_center - 50):
                 self.thrower(1800)
                 stopping_time = time()
                 while (time()-stopping_time< 5):
@@ -59,11 +63,11 @@ class GameLogic():
                 sleep(10)
 
         #обертаємося доки м'яч не опиниться посередині фрейму (який для м'яча)
-        elif (self.ball_x < ball_center - 20 and self.ball_x > ball_center + 20):
+        elif (self.ball_x < ball_center - 50 and self.ball_x > ball_center + 50):
             self.rotating()
 
         #рухаємося до м'яча як тільки він опиниться посередині фрейму
-        elif (self.ball_x < ball_center + 20 and self.ball_x > ball_center - 20):
+        elif (self.ball_x < ball_center + 50 and self.ball_x > ball_center - 50):
             self.move_forward()
 
         #інакше просто обертаємося
@@ -94,7 +98,7 @@ class GameLogic():
 
 if __name__ == "__main__":
     rospy.init_node('game_logic_node', anonymous=True)
-    rate = rospy.Rate(17)
+    rate = rospy.Rate(60)
 
     game_logic = GameLogic()
 

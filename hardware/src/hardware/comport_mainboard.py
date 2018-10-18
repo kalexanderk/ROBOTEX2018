@@ -45,6 +45,13 @@ class ComportMainboard(threading.Thread):
             except:
                 print('mainboard: err write ' + comm)
 
+    def read(self):
+        full_command, single_character = "", ""
+        while single_character != "\n":
+            single_character = self.connection.read()
+            full_command += single_character
+        return full_command
+
     #launch_wheel_motors(-20,20,0)
     def launch_wheel_motors(self,speed1, speed2, speed3):
         if self.connection_opened:
