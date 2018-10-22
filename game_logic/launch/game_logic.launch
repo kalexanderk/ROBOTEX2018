@@ -1,4 +1,4 @@
 <launch>
-    <node pkg="game_logic" type="game_logic.py"
-        name="game_logic" output="screen" />
+    <node pkg="game_logic" type="game_logic_state.py"
+        name="game_logic_state" output="screen" />
 </launch>

@@ -49,11 +49,40 @@ DEBUG = False
 BALL_COLOR_LOWER_BOUND = np.array([lH, lS, lV])
 BALL_COLOR_UPPER_BOUND = np.array([hH, hS, hV])
 
+f = open("Gatevalues.txt", "r")
+glH = int(f.readline().strip('\n'))
+glS = int(f.readline().strip('\n'))
+glV = int(f.readline().strip('\n'))
+ghH = int(f.readline().strip('\n'))
+ghS = int(f.readline().strip('\n'))
+ghV = int(f.readline().strip('\n'))
+
+
+gbil = int(f.readline().strip('\n'))
+gdil = int(f.readline().strip('\n'))
+gerr = int(f.readline().strip('\n'))
+
+gByAreaBool = int(f.readline().strip('\n'))
+gminAreaf = int(f.readline().strip('\n'))
+gmaxAreaf = int(f.readline().strip('\n'))
+gByColorBool = int(f.readline().strip('\n'))
+gblobColorf = int(f.readline().strip('\n'))
+gByCircularityBool = int(f.readline().strip('\n'))
+gminCircularityf = int(f.readline().strip('\n'))
+gmaxCircularityf = int(f.readline().strip('\n'))
+gByConvexityBool = int(f.readline().strip('\n'))
+gminConvexityf = int(f.readline().strip('\n'))
+gmaxConvexityf = int(f.readline().strip('\n'))
+gByInertiaBool =int(f.readline().strip('\n'))
+gminInertiaRatio = int(f.readline().strip('\n'))
+gmaxInertiaRatio = int(f.readline().strip('\n'))
+
+f.close()
 
 
 # These aren't actually calibrated yet
-BLUE_BASKET_LOWER_BOUND = np.array([90, 100, 40])
-BLUE_BASKET_UPPER_BOUND = np.array([125, 255, 255])
+BLUE_BASKET_LOWER_BOUND = np.array([glH, glS, glV])
+BLUE_BASKET_UPPER_BOUND = np.array([ghH, ghS, ghV])
 
 MAGENTA_BASKET_LOWER_BOUND = np.array([125, 100, 40])
 MAGENTA_BASKET_UPPER_BOUND = np.array([170, 255, 255])
@@ -114,7 +143,7 @@ class ImageProcessor:
 
     def process_image(self):
 
-        rospy.loginfo("Image: scanning frame")
+        # rospy.loginfo("Image: scanning frame")
 
         '''Get frameset of color and depth'''
         frames = self.pipeline.wait_for_frames()
@@ -146,18 +175,11 @@ class ImageProcessor:
         '''Find balls'''
         self.find_balls()
 
+        '''Find baskets'''
+        self.find_basket('blue')
+
         '''Get the closest ball coordinates'''
         self.closest_ball = self.get_closest_ball_coordinates()
-
-        # global flag_
-        # if flag_:
-        #     filedepth = open("workfile.txt", "w")
-        #     for i in range(0, len(self.depth_image)):
-        #         for j in range(0, len(self.depth_image[0])):
-        #             filedepth.write(str(self.depth_image[i][j]) + " ")
-        #         filedepth.write("\n")
-        #     filedepth.close()
-        #     flag_ = False
 
         self.send_objects()
 
@@ -181,32 +203,44 @@ class ImageProcessor:
             thresholded = cv2.inRange(self.hsv, BLUE_BASKET_LOWER_BOUND, BLUE_BASKET_UPPER_BOUND)
             outimage = cv2.bitwise_and(self.hsv, self.hsv, mask=thresholded)
             '''Point of interest (blobs)'''
-            self.blue_basket_keypoints = detector.detect(outimage)
-            # imgcopy = cv2.drawKeypoints(imgcopy, self.blue_basket_keypoints, np.array([]), (0, 0, 255),
-            #                             cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+            self.basket_keypoints = gatector.detect(outimage)
         elif color == 'magenta':
             thresholded = cv2.inRange(self.hsv, MAGENTA_BASKET_LOWER_BOUND, MAGENTA_BASKET_UPPER_BOUND)
             outimage = cv2.bitwise_and(self.hsv, self.hsv, mask=thresholded)
             '''Point of interest (blobs)'''
-            self.magenta_basket_keypoints = detector.detect(outimage)
-            # imgcopy = cv2.drawKeypoints(imgcopy, self.magenta_basket_keypoints, np.array([]), (0, 0, 255),
-            #                             cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         else:
             return
 
-        # cv2.imshow('threshold', outimage)
-        # cv2.imshow('original', imgcopy)
+        try:
+            self.basket_keypoints = self.basket_keypoints[0]
+            pt = [int(self.basket_keypoints.pt[0]), int(self.basket_keypoints.pt[1])]
+            loc = []
+            for ix in range(pt[0] - 3, pt[0] + 4):
+                if ix > 1279 or ix < 0:
+                    continue
+                for iy in range(pt[1] - 3, pt[1] + 4):
+                    if iy > 719 or iy < 0:
+                        continue
+                    if self.depth_image[iy, ix] != 0:
+                        loc.append(self.depth_image[iy, ix] * self.depth_scale)
 
-    def get_center_distances(self, type):
+            if len(loc) == 0:
+                self.basket_distance = 99999900
+            else:
+                a = 0
+                for el in loc:
+                    a += el
+                    self.basket_distance = a/len(loc)
+        except:
+            self.basket_keypoints = None
+
+
+
+    def get_center_distances(self):
         distances = []
         '''Access the image pixels and create a 1D numpy array then add to list'''
         for i in range(len(self.ball_keypoints)):
-            if type == 'ball':
-                pt = [int(self.ball_keypoints[i].pt[0]), int(self.ball_keypoints[i].pt[1])]
-            elif type == 'blue_basket':
-                pt = self.blue_basket_keypoints[i].pt
-            elif type == 'magenta_basket':
-                pt = self.magenta_basket_keypoints[i].pt
+            pt = [int(self.ball_keypoints[i].pt[0]), int(self.ball_keypoints[i].pt[1])]
 
             loc = []
             for ix in range(pt[0] - 3, pt[0] + 4):
@@ -233,8 +267,7 @@ class ImageProcessor:
     def get_closest_ball_coordinates(self):
         debug_log(str(len(self.ball_keypoints)) + " balls found")
         if len(self.ball_keypoints) > 0:
-            distances = self.get_center_distances('ball')
-            # print("Center distances", distances)
+            distances = self.get_center_distances()
             try:
                 # return self.ball_keypoints[distances.index(max(distances))]
                 # print('Closest ball', self.ball_keypoints[distances.index(min(distances))], min(distances), '\n')
@@ -248,11 +281,17 @@ class ImageProcessor:
         # baskets = "{}:{}".format(0, 0)
         # message = "{}\n{}".format(ball, baskets)
         '''Coordinates'''
-        try:
-            message = "{};{}\n".format(self.closest_ball.pt[0],
-                                       self.closest_ball.pt[1])
-        except:
+        if self.closest_ball != None:
+            message = "{};{}\n".format(self.closest_ball.pt[0],self.closest_ball.pt[1])
+        else:
             message = "None\n"
+
+        if self.basket_keypoints != None:
+            message += "{};{};{}".format(self.basket_keypoints.pt[0],
+                                           self.basket_keypoints.pt[1], self.basket_distance)
+        else:
+            message += "None"
+
         self.object_publisher.publish(message)
 
 
@@ -283,9 +322,30 @@ if __name__ == "__main__":
 
         detector = cv2.SimpleBlobDetector_create(params)
 
+	params = cv2.SimpleBlobDetector_Params()
+        params.filterByArea = gByAreaBool
+        params.minArea = gminAreaf
+        params.maxArea = gmaxAreaf
+
+        params.filterByColor = gByColorBool
+        params.blobColor = gblobColorf
+        params.filterByCircularity = gByCircularityBool
+        params.minCircularity = gminCircularityf / 100.0
+        params.maxCircularity = gmaxCircularityf / 100.0
+
+        params.filterByConvexity = gByConvexityBool
+        params.minConvexity = gminConvexityf / 100.0
+        params.maxConvexity = gmaxConvexityf / 100.0
+
+        params.filterByInertia = gByInertiaBool
+        params.minInertiaRatio = gminInertiaRatio / 100.0
+        params.maxInertiaRatio = gmaxInertiaRatio / 100.0
+
+        gatector = cv2.SimpleBlobDetector_create(params)
+
         camera = ImageProcessor()
         camera.run()
-        rate = rospy.Rate(60)
+        rate = rospy.Rate(25)
 
         while not rospy.is_shutdown():
             camera.process_image()

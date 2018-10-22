@@ -1,7 +1,7 @@
 <launch>
   <node pkg="hardware" type="serial_communication.py"
         name="serial_communication" output="screen" />
-  <node pkg="game_logic" type="game_logic.py"
+  <node pkg="game_logic" type="game_logic_state.py"
         name="game_logic" output="screen" />
   <node pkg="image_processing" type="image_processing.py"
         name="image_processing" output="screen" />
