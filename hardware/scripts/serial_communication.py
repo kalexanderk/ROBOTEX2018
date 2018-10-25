@@ -5,7 +5,7 @@ import rospy
 import math
 import hardware.comport_mainboard as mainboard
 from geometry_msgs.msg import Point
-from std_msgs.msg import Int16
+from std_msgs.msg import Int16, String
 
 WHEEL_ONE_ANGLE = 120
 WHEEL_TWO_ANGLE = 240
@@ -28,8 +28,13 @@ class SerialCommunication():
         self.started = True
 
         #слухаємо команди від game_logic
-        self.sub = rospy.Subscriber("robot_movement", Point, self.new_object_callback_wheels)
-        self.sub = rospy.Subscriber("thrower", Int16, self.new_object_callback_thrower)
+        self.sub_movement = rospy.Subscriber("robot_movement", Point, self.new_object_callback_wheels)
+        self.sub_thrower = rospy.Subscriber("thrower", Int16, self.new_object_callback_thrower)
+        self.xbee_send_sub = rospy.Subscriber("xbee_send_sub", String, self.new_xbee_send_callback)
+
+
+        self.xbe_publisher = rospy.Publisher("xbe_commands", String, queue_size=120)
+
 
         '''Omnimotion starts from here'''
 
@@ -73,15 +78,22 @@ class SerialCommunication():
 
     '''End of the omnimotion'''
 
+
+    '''Where the action happens'''
     def new_object_callback_wheels(self, point):
         self.set_movement(point.x, point.y, point.z)
 
     def new_object_callback_thrower(self, speed):
         self.main_board.launch_thrower(speed.data)
 
+    '''Reading commands from a mainboard and publishing them to xbe_commands publisher'''
     def read_command(self):
         if self.started:
-            self.main_board.read()
+            self.xbe_publisher.publish(str(self.main_board.read()))
+
+    '''Sending the answer to xbee commands'''
+    def new_xbee_send_callback(self, message):
+        self.main_board.write(str(message))
 
 
 if __name__ == '__main__':
