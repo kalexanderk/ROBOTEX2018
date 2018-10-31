@@ -30,7 +30,7 @@ class SerialCommunication():
         #слухаємо команди від game_logic
         self.sub_movement = rospy.Subscriber("robot_movement", Point, self.new_object_callback_wheels)
         self.sub_thrower = rospy.Subscriber("thrower", Int16, self.new_object_callback_thrower)
-        self.xbee_send_sub = rospy.Subscriber("xbee_send_sub", String, self.new_xbee_send_callback)
+        self.xbee_send_sub = rospy.Subscriber("xbee_send", String, self.new_xbee_send_callback)
 
 
         self.xbe_publisher = rospy.Publisher("xbe_commands", String, queue_size=120)
@@ -93,7 +93,7 @@ class SerialCommunication():
 
     '''Sending the answer to xbee commands'''
     def new_xbee_send_callback(self, message):
-        self.main_board.write(str(message))
+        self.main_board.send_referee_signal_string(str(message).split('"')[1])
 
 
 if __name__ == '__main__':

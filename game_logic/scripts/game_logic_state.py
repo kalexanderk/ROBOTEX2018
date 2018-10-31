@@ -39,7 +39,7 @@ class GameLogicState():
         self.xIe = 0
         self.xPe = 0
 
-        self.state = 1
+        self.state = 0
         #state 0 - wait for XBEE command
         #state 1 - look for the ball and center
         #state 2 - approach the ball
@@ -71,8 +71,8 @@ class GameLogicState():
 
     def new_xbee_callback(self, message):
         received = str(message).strip('data: "n\<>-').split(":")
-        print(received)
-        if received[0] == '<ref':
+        #print(received)
+        if received[0] == 'ref':
             addid = received[1][1:3]
             if addid == self.ID:
                 cmd = received[1][3:]
@@ -81,7 +81,7 @@ class GameLogicState():
                 elif cmd == 'STOP':
                     self.state = 0
                 elif cmd == 'PING':
-                    self.xbee_send_pub.publish('rf:a'+str(self.ID)+'ACK------')
+                    self.xbee_send_pub.publish('a'+str(self.ID)+'ACK------')
 
 
     def move_backward(self):
@@ -140,7 +140,7 @@ if __name__ == "__main__":
     print("Rounding Right")
 
     while not rospy.is_shutdown():
-        if game_logic.ball_x != None:
+        if game_logic.ball_x != None and game_logic.state == 1:
             game_logic.move_forwardPID()
         '''
         if game_logic.state == 1:
