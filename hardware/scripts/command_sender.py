@@ -41,7 +41,8 @@ def command_sender(cmd):
     rospy.init_node('command_sender', anonymous=True)
     rate = rospy.Rate(17)
     while not rospy.is_shutdown():
-        rounding()
+        # VALUES ARE BETWEEN 1000 AND 2020 / 8
+        thrower(240)
         rate.sleep()
 
 

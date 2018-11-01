@@ -69,6 +69,7 @@ class GameLogicState():
         #print("\n", self.ball_x, self.ball_y, self.basket_x, self.basket_y, self.basket_dist)
         #print("============================================")
 
+    #in HTERM the Baud rate should be 9600. We are sending ASCII commands.
     def new_xbee_callback(self, message):
         received = str(message).strip('data: "n\<>-').split(":")
         #print(received)
@@ -140,6 +141,7 @@ if __name__ == "__main__":
     print("Rounding Right")
 
     while not rospy.is_shutdown():
+        game_logic.state = 0
         if game_logic.ball_x != None and game_logic.state == 1:
             game_logic.move_forwardPID()
         '''
