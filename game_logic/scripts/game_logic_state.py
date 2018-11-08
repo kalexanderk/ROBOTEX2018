@@ -144,42 +144,47 @@ if __name__ == "__main__":
 
     while not rospy.is_shutdown():
 
-        if game_logic.state == 1:
-            if game_logic.ball_x != None:
-                game_logic.state = 2
-                print("Found the ball.")
-            else:
-                game_logic.rotatingR()
 
-        elif game_logic.state == 2:
+        game_logic.thrower(190)
+        print(game_logic.basket_dist)
 
-            if game_logic.ball_y > 660:
-                game_logic.state = 3
-                print("Close to the ball.")
-                pass
 
-            if game_logic.ball_x == None:
-                game_logic.state = 1
-            else:
-                game_logic.move_forwardPID()
-
-        elif game_logic.state == 3:
-            if  game_logic.basket_x < center_thrower + 15 \
-                    and game_logic.basket_x > center_thrower - 15:
-                game_logic.thrower(250)
-                sleep(0.5)
-                game_logic.state = 4
-                print("Found the basket; x = " + str(game_logic.basket_x))
-            elif game_logic.basket_x >= center_thrower + 15:
-                game_logic.roundingL()
-            else:
-                game_logic.roundingR()
-
-        elif game_logic.state == 4:
-            game_logic.thrower(250)
-            game_logic.move_forward2()
-            sleep(1)
-            game_logic.state = 1
+        # if game_logic.state == 1:
+        #     if game_logic.ball_x != None:
+        #         game_logic.state = 2
+        #         print("Found the ball.")
+        #     else:
+        #         game_logic.rotatingR()
+        #
+        # elif game_logic.state == 2:
+        #
+        #     if game_logic.ball_y > 660:
+        #         game_logic.state = 3
+        #         print("Close to the ball.")
+        #         pass
+        #
+        #     if game_logic.ball_x == None:
+        #         game_logic.state = 1
+        #     else:
+        #         game_logic.move_forwardPID()
+        #
+        # elif game_logic.state == 3:
+        #     if  game_logic.basket_x < center_thrower + 15 \
+        #             and game_logic.basket_x > center_thrower - 15:
+        #         game_logic.thrower(250)
+        #         sleep(0.5)
+        #         game_logic.state = 4
+        #         print("Found the basket; x = " + str(game_logic.basket_x))
+        #     elif game_logic.basket_x >= center_thrower + 15:
+        #         game_logic.roundingL()
+        #     else:
+        #         game_logic.roundingR()
+        #
+        # elif game_logic.state == 4:
+        #     game_logic.thrower(250)
+        #     game_logic.move_forward2()
+        #     sleep(1)
+        #     game_logic.state = 1
 
 
         rate.sleep()
