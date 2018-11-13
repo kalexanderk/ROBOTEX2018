@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Reads from the camera and writes object positions to the objects channel
 
+
 import rospy
 from std_msgs.msg import String
 import numpy as np
@@ -10,83 +11,56 @@ import pyrealsense2 as rs
 import copy
 import os
 
-f = open("values.txt", "r")
 
-lH = int(f.readline().strip('\n'))
-lS = int(f.readline().strip('\n'))
-lV = int(f.readline().strip('\n'))
-hH = int(f.readline().strip('\n'))
-hS = int(f.readline().strip('\n'))
-hV = int(f.readline().strip('\n'))
+def generate_detector_from_file(textFile):
+    f = open(textFile, "r")
+    params = cv2.SimpleBlobDetector_Params()
 
+    lH = int(f.readline().strip('\n'))
+    lS = int(f.readline().strip('\n'))
+    lV = int(f.readline().strip('\n'))
+    hH = int(f.readline().strip('\n'))
+    hS = int(f.readline().strip('\n'))
+    hV = int(f.readline().strip('\n'))
 
-bil = int(f.readline().strip('\n'))
-dil = int(f.readline().strip('\n'))
-err = int(f.readline().strip('\n'))
+    bil = int(f.readline().strip('\n'))
+    dil = int(f.readline().strip('\n'))
+    err = int(f.readline().strip('\n'))
 
-ByAreaBool = int(f.readline().strip('\n'))
-minAreaf = int(f.readline().strip('\n'))
-maxAreaf = int(f.readline().strip('\n'))
-ByColorBool = int(f.readline().strip('\n'))
-blobColorf = int(f.readline().strip('\n'))
-ByCircularityBool = int(f.readline().strip('\n'))
-minCircularityf = int(f.readline().strip('\n'))
-maxCircularityf = int(f.readline().strip('\n'))
-ByConvexityBool = int(f.readline().strip('\n'))
-minConvexityf = int(f.readline().strip('\n'))
-maxConvexityf = int(f.readline().strip('\n'))
-ByInertiaBool =int(f.readline().strip('\n'))
-minInertiaRatio = int(f.readline().strip('\n'))
-maxInertiaRatio = int(f.readline().strip('\n'))
+    params.filterByArea = int(f.readline().strip('\n'))
+    params.minArea = int(f.readline().strip('\n'))
+    params.maxArea = int(f.readline().strip('\n'))
 
-f.close()
+    params.filterByColor = int(f.readline().strip('\n'))
+    params.blobColor = int(f.readline().strip('\n'))
+
+    params.filterByCircularity = int(f.readline().strip('\n'))
+    params.minCircularity = int(f.readline().strip('\n')) / 100.0
+    params.maxCircularity = int(f.readline().strip('\n')) / 100.0
+
+    params.filterByConvexity = int(f.readline().strip('\n'))
+    params.minConvexity = int(f.readline().strip('\n')) / 100.0
+    params.maxConvexity = int(f.readline().strip('\n')) / 100.0
+
+    params.filterByInertia = int(f.readline().strip('\n'))
+    params.minInertiaRatio = int(f.readline().strip('\n')) / 100.0
+    params.maxInertiaRatio = int(f.readline().strip('\n')) / 100.0
+
+    f.close()
+
+    detector = cv2.SimpleBlobDetector_create(params)
+
+    colour_lower_bound = np.array([lH, lS, lV])
+    colour_upper_bound = np.array([hH, hS, hV])
+
+    return detector, colour_lower_bound, colour_upper_bound
+
 
 DEBUG = False
 
+
 # Important reading about cv2 color spaces:
 # https://docs.opencv.org/3.4.2/df/d9d/tutorial_py_colorspaces.html
-# Hue goes from 0 to 179
-BALL_COLOR_LOWER_BOUND = np.array([lH, lS, lV])
-BALL_COLOR_UPPER_BOUND = np.array([hH, hS, hV])
-
-f = open("Gatevalues.txt", "r")
-glH = int(f.readline().strip('\n'))
-glS = int(f.readline().strip('\n'))
-glV = int(f.readline().strip('\n'))
-ghH = int(f.readline().strip('\n'))
-ghS = int(f.readline().strip('\n'))
-ghV = int(f.readline().strip('\n'))
-
-
-gbil = int(f.readline().strip('\n'))
-gdil = int(f.readline().strip('\n'))
-gerr = int(f.readline().strip('\n'))
-
-gByAreaBool = int(f.readline().strip('\n'))
-gminAreaf = int(f.readline().strip('\n'))
-gmaxAreaf = int(f.readline().strip('\n'))
-gByColorBool = int(f.readline().strip('\n'))
-gblobColorf = int(f.readline().strip('\n'))
-gByCircularityBool = int(f.readline().strip('\n'))
-gminCircularityf = int(f.readline().strip('\n'))
-gmaxCircularityf = int(f.readline().strip('\n'))
-gByConvexityBool = int(f.readline().strip('\n'))
-gminConvexityf = int(f.readline().strip('\n'))
-gmaxConvexityf = int(f.readline().strip('\n'))
-gByInertiaBool =int(f.readline().strip('\n'))
-gminInertiaRatio = int(f.readline().strip('\n'))
-gmaxInertiaRatio = int(f.readline().strip('\n'))
-
-f.close()
-
-
-# These aren't actually calibrated yet
-BLUE_BASKET_LOWER_BOUND = np.array([glH, glS, glV])
-BLUE_BASKET_UPPER_BOUND = np.array([ghH, ghS, ghV])
-
-MAGENTA_BASKET_LOWER_BOUND = np.array([125, 100, 40])
-MAGENTA_BASKET_UPPER_BOUND = np.array([170, 255, 255])
-
 
 def debug_log(text):
     if DEBUG:
@@ -132,7 +106,7 @@ class ImageProcessor:
 
         '''We will be removing the background of objects more than
            clipping_distance_in_meters meters away'''
-        clipping_distance_in_meters = 3 # 3 meters
+        clipping_distance_in_meters = 3  # 3 meters
         self.clipping_distance = clipping_distance_in_meters / self.depth_scale
 
         '''Create an align object
@@ -191,7 +165,7 @@ class ImageProcessor:
         thresholded = cv2.inRange(self.hsv, BALL_COLOR_LOWER_BOUND, BALL_COLOR_UPPER_BOUND)
         outimage = cv2.bitwise_and(self.hsv, self.hsv, mask=thresholded)
         '''Point of interest (blobs)'''
-        self.ball_keypoints = detector.detect(outimage)
+        self.ball_keypoints = balltector.detect(outimage)
         # imgcopy = cv2.drawKeypoints(imgcopy, self.ball_keypoints, np.array([]), (0, 0, 255),
         #                             cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
         # cv2.imshow('threshold', outimage)
@@ -203,10 +177,10 @@ class ImageProcessor:
             thresholded = cv2.inRange(self.hsv, BLUE_BASKET_LOWER_BOUND, BLUE_BASKET_UPPER_BOUND)
             outimage = cv2.bitwise_and(self.hsv, self.hsv, mask=thresholded)
             '''Point of interest (blobs)'''
-            self.basket_keypoints = gatector.detect(outimage)
+            self.basket_keypoints = blue_gatector.detect(outimage)
         elif color == 'magenta':
-            thresholded = cv2.inRange(self.hsv, MAGENTA_BASKET_LOWER_BOUND, MAGENTA_BASKET_UPPER_BOUND)
-            outimage = cv2.bitwise_and(self.hsv, self.hsv, mask=thresholded)
+            # thresholded = cv2.inRange(self.hsv, MAGENTA_BASKET_LOWER_BOUND, MAGENTA_BASKET_UPPER_BOUND)
+            # outimage = cv2.bitwise_and(self.hsv, self.hsv, mask=thresholded)
             '''Point of interest (blobs)'''
         else:
             return
@@ -230,11 +204,9 @@ class ImageProcessor:
                 a = 0
                 for el in loc:
                     a += el
-                    self.basket_distance = a/len(loc)
+                    self.basket_distance = a / len(loc)
         except:
             self.basket_keypoints = None
-
-
 
     def get_center_distances(self):
         distances = []
@@ -282,13 +254,13 @@ class ImageProcessor:
         # message = "{}\n{}".format(ball, baskets)
         '''Coordinates'''
         if self.closest_ball != None:
-            message = "{};{}\n".format(self.closest_ball.pt[0],self.closest_ball.pt[1])
+            message = "{};{}\n".format(self.closest_ball.pt[0], self.closest_ball.pt[1])
         else:
             message = "None\n"
 
         if self.basket_keypoints != None:
             message += "{};{};{}".format(self.basket_keypoints.pt[0],
-                                           self.basket_keypoints.pt[1], self.basket_distance)
+                                         self.basket_keypoints.pt[1], self.basket_distance)
         else:
             message += "None"
 
@@ -301,47 +273,10 @@ if __name__ == "__main__":
 
         rospy.init_node("image_processor")
 
-        params = cv2.SimpleBlobDetector_Params()
-        params.filterByArea = ByAreaBool
-        params.minArea = minAreaf
-        params.maxArea = maxAreaf
+        balltector, BALL_COLOR_LOWER_BOUND, BALL_COLOR_UPPER_BOUND = generate_detector_from_file("values.txt")
 
-        params.filterByColor = ByColorBool
-        params.blobColor = blobColorf
-        params.filterByCircularity = ByCircularityBool
-        params.minCircularity = minCircularityf / 100.0
-        params.maxCircularity = maxCircularityf / 100.0
-
-        params.filterByConvexity = ByConvexityBool
-        params.minConvexity = minConvexityf / 100.0
-        params.maxConvexity = maxConvexityf / 100.0
-
-        params.filterByInertia = ByInertiaBool
-        params.minInertiaRatio = minInertiaRatio / 100.0
-        params.maxInertiaRatio = maxInertiaRatio / 100.0
-
-        detector = cv2.SimpleBlobDetector_create(params)
-
-	params = cv2.SimpleBlobDetector_Params()
-        params.filterByArea = gByAreaBool
-        params.minArea = gminAreaf
-        params.maxArea = gmaxAreaf
-
-        params.filterByColor = gByColorBool
-        params.blobColor = gblobColorf
-        params.filterByCircularity = gByCircularityBool
-        params.minCircularity = gminCircularityf / 100.0
-        params.maxCircularity = gmaxCircularityf / 100.0
-
-        params.filterByConvexity = gByConvexityBool
-        params.minConvexity = gminConvexityf / 100.0
-        params.maxConvexity = gmaxConvexityf / 100.0
-
-        params.filterByInertia = gByInertiaBool
-        params.minInertiaRatio = gminInertiaRatio / 100.0
-        params.maxInertiaRatio = gmaxInertiaRatio / 100.0
-
-        gatector = cv2.SimpleBlobDetector_create(params)
+        blue_gatector, BLUE_BASKET_LOWER_BOUND, BLUE_BASKET_UPPER_BOUND = generate_detector_from_file("Gatevalues.txt")
+        # magenta_gatector, MAGENTA_BASKET_LOWER_BOUND, MAGENTA_BASKET_UPPER_BOUND = generate_detector_from_file("Gatevalues.txt")
 
         camera = ImageProcessor()
         camera.run()
