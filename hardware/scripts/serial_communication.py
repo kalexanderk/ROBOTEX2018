@@ -33,7 +33,7 @@ class SerialCommunication():
         self.xbee_send_sub = rospy.Subscriber("xbee_send", String, self.new_xbee_send_callback)
 
 
-        self.xbe_publisher = rospy.Publisher("xbe_commands", String, queue_size=120)
+        self.xbe_publisher = rospy.Publisher("xbee_commands", String, queue_size=120)
 
 
         '''Omnimotion starts from here'''
@@ -82,7 +82,7 @@ class SerialCommunication():
     def new_object_callback_thrower(self, speed):
         self.main_board.launch_thrower(speed.data)
 
-    '''Reading commands from a mainboard and publishing them to xbe_commands publisher'''
+    '''Reading commands from a mainboard and publishing them to xbee_commands publisher'''
     def read_command(self):
         if self.started:
             self.xbe_publisher.publish(str(self.main_board.read()))

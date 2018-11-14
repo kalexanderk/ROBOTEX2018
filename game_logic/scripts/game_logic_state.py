@@ -14,14 +14,14 @@ class GameLogicState():
 
     def __init__(self):
 
-        '''IMPORTANT STUFF'''
+        '''IMPORTANT STUFF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
         self.ID = 'SS'
 
-        # getting the message from the image processing node
+        # getting the detected objects coordinates
         self.image_processing = rospy.Subscriber("image_processing/objects",
                                                  String, self.new_object_callback_objects)
 
-        self.xbee_sub = rospy.Subscriber("xbe_commands", String, self.new_xbee_callback)
+        self.xbee_sub = rospy.Subscriber("xbee_commands", String, self.new_xbee_callback)
         self.xbee_send_pub = rospy.Publisher("xbee_send", String, queue_size=120)
         # sending requests for running motors and thrower
         self.robot_movement_pub = rospy.Publisher('robot_movement', Point, queue_size=10)
@@ -65,7 +65,6 @@ class GameLogicState():
             self.basket_y = None
             self.basket_dist = None
 
-
     #in HTERM the Baud rate should be 9600. We are sending ASCII commands.
     def new_xbee_callback(self, message):
         received = str(message).strip('data: "n\<>-').split(":")
@@ -80,14 +79,8 @@ class GameLogicState():
                 elif cmd == 'PING':
                     self.xbee_send_pub.publish('a'+str(self.ID)+'ACK------')
 
-
-    def move_backward(self):
-        self.robot_movement_pub.publish(Point(40, -90, 0))
-
-    def move_forward(self):
-        self.robot_movement_pub.publish(Point(20, 90, 0))
-
-    def move_forward2(self):
+    # speed range for motors is ...
+    def move_forward_to_ball(self):
         self.robot_movement_pub.publish(Point(25, 90, 0))
 
     def rotatingR(self):
@@ -105,6 +98,7 @@ class GameLogicState():
     def roundingR(self):
         self.robot_movement_pub.publish(Point(12, 170, -51))
 
+    # values are from 125 to 250
     def thrower(self, speed):
         self.thrower_pub.publish(Int16(speed))
 
@@ -120,10 +114,11 @@ class GameLogicState():
 
     def move_forwardPID(self):
         pido = self.xPID()
-        if pido==0:
+        if pido == 0:
             self.robot_movement_pub.publish(Point(40, 90, 0))
         else:
             self.robot_movement_pub.publish(Point(40, 90, -1*pido))
+
 
 if __name__ == "__main__":
     rospy.init_node('game_logic', anonymous=True)
@@ -136,11 +131,6 @@ if __name__ == "__main__":
     sleep(1)
 
     while not rospy.is_shutdown():
-
-
-        # game_logic.thrower(190)
-        # print(game_logic.basket_dist)
-
 
         if game_logic.state == 1:
             print('State 1')
@@ -158,7 +148,7 @@ if __name__ == "__main__":
                 print("Close to the ball.")
                 pass
 
-            if game_logic.ball_x == None:
+            if game_logic.ball_x is None:
                 game_logic.xIe = 0
                 game_logic.state = 1
             else:
@@ -166,8 +156,7 @@ if __name__ == "__main__":
 
         elif game_logic.state == 3:
             print('State 3')
-            if  game_logic.basket_x < center_thrower + 15 \
-                    and game_logic.basket_x > center_thrower - 15:
+            if math.fabs(game_logic.basket_x - center_thrower) < 15:
                 game_logic.thrower(250)
                 # sleep(0.5)
                 game_logic.state = 4
@@ -180,10 +169,8 @@ if __name__ == "__main__":
         elif game_logic.state == 4:
             print('State 4')
             game_logic.thrower(250)
-            game_logic.move_forward2()
+            game_logic.move_forward_to_ball()
             sleep(1)
             game_logic.state = 1
 
-
         rate.sleep()
-
