@@ -17,13 +17,13 @@ class GameLogicState():
         '''IMPORTANT STUFF'''
         self.ID = 'SS'
 
-        #отримуємо повідомлення про обробку зображення
+        # getting the message from the image processing node
         self.image_processing = rospy.Subscriber("image_processing/objects",
                                                  String, self.new_object_callback_objects)
 
         self.xbee_sub = rospy.Subscriber("xbe_commands", String, self.new_xbee_callback)
         self.xbee_send_pub = rospy.Publisher("xbee_send", String, queue_size=120)
-        #надсилаємо запити на запуск моторів та thrower'а
+        # sending requests for running motors and thrower
         self.robot_movement_pub = rospy.Publisher('robot_movement', Point, queue_size=10)
         self.thrower_pub = rospy.Publisher("thrower", Int16, queue_size=10)
 
@@ -47,7 +47,6 @@ class GameLogicState():
         #state 4 - charge the ball towards the basket
 
     def new_object_callback_objects(self, message):
-        #print(message)
         position_ball = message.data.split("\n")[0]
         if position_ball != "None":
             self.ball_x = float(position_ball.split(";")[0])
@@ -66,13 +65,10 @@ class GameLogicState():
             self.basket_y = None
             self.basket_dist = None
 
-        #print("\n", self.ball_x, self.ball_y, self.basket_x, self.basket_y, self.basket_dist)
-        #print("============================================")
 
     #in HTERM the Baud rate should be 9600. We are sending ASCII commands.
     def new_xbee_callback(self, message):
         received = str(message).strip('data: "n\<>-').split(":")
-        #print(received)
         if received[0] == 'ref':
             addid = received[1][1:3]
             if addid == self.ID:
@@ -111,12 +107,6 @@ class GameLogicState():
 
     def thrower(self, speed):
         self.thrower_pub.publish(Int16(speed))
-
-    # def diagonalFL(self):
-    #     self.robot_movement_pub.publish(Point(10, 45, 30))
-    #
-    # def diagonalFR(self):
-    #     self.robot_movement_pub.publish(Point(10, 135, 30))
 
     def xPID(self):
         cEr = 660 - self.ball_x

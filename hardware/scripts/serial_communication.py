@@ -15,9 +15,9 @@ WHEEL_DISTANCE_FROM_CENTER = 0.133
 ROBOT_SPEED = 30
 ROBOT_TURN_SPEED = 50
 
-# WHEEL1 = 60
-# WHEEL2 = 300
-# WHEEL3 = 180
+# WHEEL1 = 60 degrees
+# WHEEL2 = 300 degrees
+# WHEEL3 = 180 degrees
 
 
 class SerialCommunication():
@@ -27,7 +27,7 @@ class SerialCommunication():
         self.main_board.run()
         self.started = True
 
-        #слухаємо команди від game_logic
+        # listening to the commands from game logic node
         self.sub_movement = rospy.Subscriber("robot_movement", Point, self.new_object_callback_wheels)
         self.sub_thrower = rospy.Subscriber("thrower", Int16, self.new_object_callback_thrower)
         self.xbee_send_sub = rospy.Subscriber("xbee_send", String, self.new_xbee_send_callback)
@@ -42,8 +42,6 @@ class SerialCommunication():
         self.wheel_two_speed = 0
         self.wheel_three_speed = 0
 
-    ''''''
-    #TRY TO USE THE ABOVE FUNCTION INSTEAD
     def get_speed_for_wheel(self, wheel_angle, drive_angle,
                             robot_speed, wheel_distance_from_center,
                             robot_angular_velocity):
@@ -73,8 +71,6 @@ class SerialCommunication():
                                       angular_speed)
 
         self.set_wheels(round(w1, 0), round(w2, 0), round(w3, 0))
-        #or round(%f,2)
-    ''''''
 
     '''End of the omnimotion'''
 
@@ -98,7 +94,7 @@ class SerialCommunication():
 
 if __name__ == '__main__':
     rospy.init_node('serial_communication', anonymous=True)
-    rate = rospy.Rate(25)  # 2Hz
+    rate = rospy.Rate(25)
     serial_communication = SerialCommunication()
 
     while not rospy.is_shutdown():

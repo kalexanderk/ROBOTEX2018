@@ -8,7 +8,6 @@ from std_msgs.msg import String
 import numpy as np
 import cv2
 import pyrealsense2 as rs
-import copy
 import os
 
 
@@ -89,7 +88,6 @@ class ImageProcessor:
         self.hsv = None
 
     def run(self):
-
         self.pipeline = rs.pipeline()
         '''Create a config and configure the pipeline to stream different resolutions of color and depth streams'''
         config = rs.config()
@@ -102,7 +100,6 @@ class ImageProcessor:
         '''Getting the depth sensor's depth scale (see rs-align example for explanation)'''
         depth_sensor = self.profile.get_device().first_depth_sensor()
         self.depth_scale = depth_sensor.get_depth_scale()
-        # print("Depth Scale is: ", self.depth_scale)
 
         '''We will be removing the background of objects more than
            clipping_distance_in_meters meters away'''
@@ -116,9 +113,6 @@ class ImageProcessor:
         self.align = rs.align(align_to)
 
     def process_image(self):
-
-        # rospy.loginfo("Image: scanning frame")
-
         '''Get frameset of color and depth'''
         frames = self.pipeline.wait_for_frames()
 
@@ -161,18 +155,13 @@ class ImageProcessor:
             rospy.loginfo(str(self.ball_keypoints))
 
     def find_balls(self):
-        imgcopy = copy.deepcopy(self.hsv)
         thresholded = cv2.inRange(self.hsv, BALL_COLOR_LOWER_BOUND, BALL_COLOR_UPPER_BOUND)
         outimage = cv2.bitwise_and(self.hsv, self.hsv, mask=thresholded)
         '''Point of interest (blobs)'''
         self.ball_keypoints = balltector.detect(outimage)
-        # imgcopy = cv2.drawKeypoints(imgcopy, self.ball_keypoints, np.array([]), (0, 0, 255),
-        #                             cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-        # cv2.imshow('threshold', outimage)
-        # cv2.imshow('original', imgcopy)
+
 
     def find_basket(self, color):
-        imgcopy = copy.deepcopy(self.hsv)
         if color == 'blue':
             thresholded = cv2.inRange(self.hsv, BLUE_BASKET_LOWER_BOUND, BLUE_BASKET_UPPER_BOUND)
             outimage = cv2.bitwise_and(self.hsv, self.hsv, mask=thresholded)
@@ -230,9 +219,6 @@ class ImageProcessor:
                 a = 0
                 for el in loc:
                     a += el
-
-                # print("lel", str(a))
-                # print("Distance", str(a / len(loc)))
                 distances.append(a / len(loc))
         return distances
 
@@ -241,17 +227,11 @@ class ImageProcessor:
         if len(self.ball_keypoints) > 0:
             distances = self.get_center_distances()
             try:
-                # return self.ball_keypoints[distances.index(max(distances))]
-                # print('Closest ball', self.ball_keypoints[distances.index(min(distances))], min(distances), '\n')
                 return self.ball_keypoints[distances.index(min(distances))]
             except:
                 return np.nan
 
     def send_objects(self):
-        '''Distances'''
-        # ball = self.get_center_distances()
-        # baskets = "{}:{}".format(0, 0)
-        # message = "{}\n{}".format(ball, baskets)
         '''Coordinates'''
         if self.closest_ball != None:
             message = "{};{}\n".format(self.closest_ball.pt[0], self.closest_ball.pt[1])
