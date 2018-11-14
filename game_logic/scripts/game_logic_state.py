@@ -14,8 +14,13 @@ class GameLogicState():
 
     def __init__(self):
 
-        '''IMPORTANT STUFF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
-        self.ID = 'SS'
+        '''TODO: HOW IS IT DEFINED FOR OUR ROBOT?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
+        # self.ID[0] - field number (A or B)
+        # self.ID[1] - robot number (X, A, B, C or D)
+        self.ID = 'AB'
+
+        #publisher for sending the field number to image processing node
+        self.field_num_pub = rospy.Publisher("field_number", String, queue_size=120)
 
         # getting the detected objects coordinates
         self.image_processing = rospy.Subscriber("image_processing/objects",
@@ -72,9 +77,13 @@ class GameLogicState():
             addid = received[1][1:3]
             if addid == self.ID:
                 cmd = received[1][3:]
+                # the robot must respond to all commands that are sent to this specific robot
+                #TODO: ADD CHECKING WHETHER IT'S SENT TO OUR ROBOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 if cmd == 'START':
+                    self.xbee_send_pub.publish('a'+str(self.ID)+'ACK------')
                     self.state = 1
                 elif cmd == 'STOP':
+                    self.xbee_send_pub.publish('a' + str(self.ID) + 'ACK------')
                     self.state = 0
                 elif cmd == 'PING':
                     self.xbee_send_pub.publish('a'+str(self.ID)+'ACK------')
@@ -131,6 +140,9 @@ if __name__ == "__main__":
     sleep(1)
 
     while not rospy.is_shutdown():
+
+        # send the field number to image processing node
+        game_logic.field_num_pub(game_logic.ID[0])
 
         if game_logic.state == 1:
             print('State 1')

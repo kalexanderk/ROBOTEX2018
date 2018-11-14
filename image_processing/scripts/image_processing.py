@@ -75,6 +75,8 @@ class ImageProcessor:
 
         self.object_publisher = rospy.Publisher(
             "image_processing/objects", String, queue_size=10)
+        self.field_number_sub = rospy.Subscriber("field_number",
+                                                 String, self.field_number_callback)
         self.balls_in_frame = []
         self.pipeline = None
         self.profile = None
@@ -87,6 +89,7 @@ class ImageProcessor:
         self.basket_distance = None
         self.basket_keypoints = None
         self.closest_ball = None
+        self.field_number = None
 
     def run(self):
         self.pipeline = rs.pipeline()
@@ -136,7 +139,10 @@ class ImageProcessor:
         self.find_balls()
 
         '''Find baskets'''
-        self.find_basket('blue')
+        if self.field_number == magenta_field:
+            self.find_basket('magenta')
+        elif self.field_number == blue_field:
+            self.find_basket('blue')
 
         '''Get the closest ball coordinates'''
         self.closest_ball = self.get_closest_ball_coordinates()
@@ -281,6 +287,10 @@ class ImageProcessor:
 
         self.object_publisher.publish(message)
 
+    '''GETTING FIELD NUMBER FROM GAME LOGIC NODE'''
+    def field_number_callback(self, message):
+        self.field_number = message
+
 
 if __name__ == "__main__":
     try:
@@ -299,6 +309,10 @@ if __name__ == "__main__":
         camera = ImageProcessor()
         camera.run()
         rate = rospy.Rate(25)
+
+        '''SET FIELDS' LETTERS'''
+        magenta_field = 'A'
+        blue_field = 'B'
 
         while not rospy.is_shutdown():
             camera.process_image()
