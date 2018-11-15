@@ -4,7 +4,6 @@
     <list default="true" id="d0ae755f-4fde-422a-9ac4-d113e41b80ee" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_processing/scripts/image_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_processing/scripts/image_processing.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,8 +21,8 @@
       <file leaf-file-name="game_logic_state.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic_state.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2755">
-              <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
+            <state relative-caret-position="350">
+              <caret line="195" column="108" selection-start-line="195" selection-start-column="108" selection-end-line="195" selection-end-column="108" />
               <folding>
                 <element signature="e#48#60#0" expanded="true" />
               </folding>
@@ -34,14 +33,12 @@
       <file leaf-file-name="image_processing.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="939">
-              <caret line="312" column="22" selection-start-line="312" selection-start-column="22" selection-end-line="312" selection-end-column="22" />
+            <state relative-caret-position="-2462">
+              <caret line="156" selection-start-line="156" selection-end-line="156" />
               <folding>
                 <element signature="n#!!doc" />
                 <element signature="e#321#1822#0" />
                 <element signature="e#1979#2016#0" />
-                <element signature="e#3436#3509#0" />
-                <element signature="e#6921#7175#0" />
               </folding>
             </state>
           </provider>
@@ -58,7 +55,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>conf</find>
       <find>loginfo</find>
       <find>thresholded</find>
       <find>Simpl</find>
@@ -88,6 +84,7 @@
       <find>rotatingL</find>
       <find>stop</find>
       <find>roundingL</find>
+      <find>get_closest_ball_coordinates</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -132,8 +129,8 @@
         <option value="$PROJECT_DIR$/hardware/launch/hardware.launch" />
         <option value="$PROJECT_DIR$/image_processing/scripts/blacklines.py" />
         <option value="$PROJECT_DIR$/hardware/scripts/serial_communication.py" />
-        <option value="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" />
         <option value="$PROJECT_DIR$/image_processing/scripts/image_processing.py" />
+        <option value="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" />
       </list>
     </option>
   </component>
@@ -545,7 +542,21 @@
       <option name="project" value="LOCAL" />
       <updated>1542230077014</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="add magenta bounds; update firmware and add instructions for controlling servos; make linear speed PID; calibrate the thrower">
+      <created>1542238528139</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1542238528139</updated>
+    </task>
+    <task id="LOCAL-00028" summary="add magenta bounds; update firmware and add instructions for controlling servos; calibrate the thrower">
+      <created>1542242554320</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1542242554320</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -560,7 +571,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32893288" />
       <window_info anchor="right" id="Remote Host" order="3" weight="0.21804096" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17266187" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1793027" />
       <window_info anchor="right" id="R Packages" order="7" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="right" id="R Graphics" order="4" />
@@ -579,31 +590,31 @@
       <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Remote Host" order="3" visible="true" weight="0.21472053" />
       <window_info anchor="right" id="SciView" order="6" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="R Graphics" order="4" />
-      <window_info anchor="bottom" id="Python Console" order="11" weight="0.24862486" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="R Packages" order="7" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22966242" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.06490649" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32946146" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="File Transfer" order="12" visible="true" weight="0.26952696" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Database" order="5" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22966242" />
+      <window_info anchor="bottom" id="Python Console" order="11" weight="0.24862486" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -631,9 +642,10 @@
     <MESSAGE value="new mainboard is connected. system is set up" />
     <MESSAGE value="game logic is good" />
     <MESSAGE value="everything is almost ready" />
-    <MESSAGE value="add magenta bounds; update firmware and add instructions for controlling servos; make linear speed PID; calibrate the thrower" />
     <MESSAGE value="add magenta bounds; add the condition to know enemy's color by parsing xbee command; update firmware and add instructions for controlling servos; make linear speed PID; calibrate the thrower" />
-    <option name="LAST_COMMIT_MESSAGE" value="add magenta bounds; add the condition to know enemy's color by parsing xbee command; update firmware and add instructions for controlling servos; make linear speed PID; calibrate the thrower" />
+    <MESSAGE value="add magenta bounds; update firmware and add instructions for controlling servos; make linear speed PID; calibrate the thrower" />
+    <MESSAGE value="add magenta bounds; update firmware and add instructions for controlling servos; calibrate the thrower" />
+    <option name="LAST_COMMIT_MESSAGE" value="add magenta bounds; update firmware and add instructions for controlling servos; calibrate the thrower" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -941,30 +953,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="874">
           <caret line="50" column="38" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="38" />
-          <folding>
-            <element signature="e#47#59#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="939">
-          <caret line="312" column="22" selection-start-line="312" selection-start-column="22" selection-end-line="312" selection-end-column="22" />
+        <state relative-caret-position="-2462">
+          <caret line="156" selection-start-line="156" selection-end-line="156" />
           <folding>
             <element signature="n#!!doc" />
             <element signature="e#321#1822#0" />
             <element signature="e#1979#2016#0" />
-            <element signature="e#3436#3509#0" />
-            <element signature="e#6921#7175#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic_state.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2755">
-          <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
+        <state relative-caret-position="350">
+          <caret line="195" column="108" selection-start-line="195" selection-start-column="108" selection-end-line="195" selection-end-column="108" />
           <folding>
             <element signature="e#48#60#0" expanded="true" />
           </folding>

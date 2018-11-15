@@ -193,6 +193,7 @@ if __name__ == "__main__":
 
         elif game_logic.state == 2:
             print('State 2')
+            # TODO: change the value from 640 to some other one as we have different frame for the new robot
             if game_logic.ball_y > 640:
                 game_logic.xIe = 0
                 game_logic.state = 3
