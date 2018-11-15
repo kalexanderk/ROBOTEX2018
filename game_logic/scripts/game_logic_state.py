@@ -37,12 +37,16 @@ class GameLogicState():
 
         self.ball_x = None
         self.ball_y = None
+        self.ball_dist = None
         self.basket_x = None
         self.basket_y = None
         self.basket_dist = None
 
+        # the integral error and previous error must be 0 at initialization of PID controller
         self.xIe = 0
-        self.xPe = 0
+        self.previousX_e = 0
+        self.dIe = 0
+        self.previousD_e = 0
 
         self.state = 0
         #state 0 - wait for XBEE command
@@ -56,9 +60,12 @@ class GameLogicState():
         if position_ball != "None":
             self.ball_x = float(position_ball.split(";")[0])
             self.ball_y = float(position_ball.split(";")[1])
+            self.ball_dist = float(position_ball.split(";")[2])
+
         else:
             self.ball_x = None
             self.ball_y = None
+            self.ball_dist = None
 
         position_basket = message.data.split("\n")[1]
         if position_basket != "None":
@@ -111,22 +118,54 @@ class GameLogicState():
     def thrower(self, speed):
         self.thrower_pub.publish(Int16(speed))
 
-    def xPID(self):
-        cEr = 660 - self.ball_x
-        self.xIe += cEr
-        div = cEr - self.xPe
-        ret = (cEr/4.5) + (self.xIe/600) + (div/10)
-        self.xPe = cEr
-        if math.fabs(ret) > 800:
-            self.xIe = 0
-        return int(ret)
 
+    '''PID CONTROLLER FOR THE ANGULAR SPEED (DEPENDS ON THE X COORDINATE OF THE BALL CENTER)'''
+    # 660 is the desirable value for self.ball_x to become while approaching the tracked ball
+    def xPID(self):
+        # current error
+        currentX_e = 660 - self.ball_x
+
+        self.xIe += currentX_e
+        xDe = (currentX_e - self.previousX_e)
+
+        # TODO: CORRECT CONSTANTS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        u = (currentX_e/4.5) + (self.xIe/600) + (xDe/10)
+
+        self.previousX_e = currentX_e
+
+        # TODO: DEFINE THE MAXIMUM VALUE FOR THE MOTOR AND FOR HERE RESPECTIVELY!!!!!!!!!!!!
+        if math.fabs(u) > 800:
+            self.xIe = 0
+
+        return int(u)
+
+    '''PID CONTROLLER FOR THE LINEAR SPEED (DEPENDS ON A DISTANCE TO THE BALL)'''
+    # 0.1 is the desirable value for self.ball_dist to become while approaching the tracked ball
+    def dPID(self):
+        # current error
+        currentD_e = self.ball_dist - 0.1
+
+        self.dIe += currentD_e
+        dDe = (currentD_e - self.previousD_e)
+
+        # TODO: FIND APPROPRIATE CONSTANTS!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        u = (currentD_e / 10) + (self.dIe / 10) + (dDe / 10)
+
+        self.previousD_e = currentD_e
+
+        if math.fabs(u) > 50:
+            self.dIe = 0
+
+        return int(u)
+
+    '''MOVE FORWARD TO TRACK THE BALL USING PID CONTROLLERS FUNCTION'''
     def move_forwardPID(self):
         pido = self.xPID()
         if pido == 0:
             self.robot_movement_pub.publish(Point(40, 90, 0))
         else:
             self.robot_movement_pub.publish(Point(40, 90, -1*pido))
+
 
 
 if __name__ == "__main__":

@@ -89,6 +89,7 @@ class ImageProcessor:
         self.basket_distance = None
         self.basket_keypoints = None
         self.closest_ball = None
+        self.closest_ball_distance = None
         self.field_number = None
 
     def run(self):
@@ -145,7 +146,7 @@ class ImageProcessor:
             self.find_basket('blue')
 
         '''Get the closest ball coordinates'''
-        self.closest_ball = self.get_closest_ball_coordinates()
+        self.closest_ball, self.closest_ball_distance = self.get_closest_ball()
 
         '''Send the information about objects detected'''
         self.send_objects()
@@ -236,12 +237,13 @@ class ImageProcessor:
         return [distance for distance in balls_distances if distance is not None]
 
 
-    def get_closest_ball_coordinates(self):
+    def get_closest_ball(self):
         debug_log(str(len(self.ball_keypoints)) + " balls found")
         if len(self.ball_keypoints) > 0:
             distances = self.get_center_distances()
             try:
-                return self.ball_keypoints[distances.index(min(distances))]
+                index_minimum_dist = distances.index(min(distances))
+                return self.ball_keypoints[index_minimum_dist], distances[index_minimum_dist]
             except:
                 return np.nan
 
@@ -275,7 +277,7 @@ class ImageProcessor:
     def send_objects(self):
         '''Coordinates'''
         if self.closest_ball is not None:
-            message = "{};{}\n".format(self.closest_ball.pt[0], self.closest_ball.pt[1])
+            message = "{};{};{}\n".format(self.closest_ball.pt[0], self.closest_ball.pt[1], self.closest_ball_distance)
         else:
             message = "None\n"
 
