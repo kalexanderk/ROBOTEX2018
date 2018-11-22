@@ -30,6 +30,7 @@ class SerialCommunication():
         # listening to the commands from game logic node
         self.sub_movement = rospy.Subscriber("robot_movement", Point, self.new_object_callback_wheels)
         self.sub_thrower = rospy.Subscriber("thrower", Int16, self.new_object_callback_thrower)
+        self.sub_servos = rospy.Subscriber("servos", Point, self.new_object_callback_servos)
         self.xbee_send_sub = rospy.Subscriber("xbee_send", String, self.new_xbee_send_callback)
 
 
@@ -69,7 +70,6 @@ class SerialCommunication():
                                       linear_speed,
                                       WHEEL_DISTANCE_FROM_CENTER,
                                       angular_speed)
-
         self.set_wheels(round(w1, 0), round(w2, 0), round(w3, 0))
 
     '''End of the omnimotion'''
@@ -81,6 +81,9 @@ class SerialCommunication():
 
     def new_object_callback_thrower(self, speed):
         self.main_board.launch_thrower(speed.data)
+
+    def new_object_callback_servos(self, point):
+        self.main_board.launch_servos(point.x, point.y)
 
     '''Reading commands from a mainboard and publishing them to xbee_commands publisher'''
     def read_command(self):

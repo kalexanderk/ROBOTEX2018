@@ -57,21 +57,21 @@ class ComportMainboard(threading.Thread):
         if self.connection_opened:
             self.write("sd:{}:{}:{}".format(speed1, speed2, speed3))
 
-    #launch_thrower(50)
+    #launch_thrower(125-250)
     def launch_thrower(self, speed):
         if self.connection_opened:
             self.write("d:{}".format(speed))
+
+    #launch servos(1: 720-825; 2: <700 - continuous mode; 2300 -> 100 - fast movement)
+    def launch_servos(self, servo1, servo2):
+        if self.connection_opened:
+            self.write("sv:{}:{}".format(servo1, servo2))
 
     #get_wheel_speeds()
     def get_wheel_speeds(self):
         if self.connection_opened:
             self.write("gs\n")
             return self.connection.readline()
-
-    # #write_speeds()
-    # def write_speeds(self):
-    #     if self.connection is not None and self.connection_opened:
-    #         rospy.loginfo("Speeds are: " + self.get_wheel_speeds())
 
 
     #send_referee_signal_string("START")

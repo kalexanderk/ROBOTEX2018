@@ -146,7 +146,7 @@ class ImageProcessor:
             self.find_basket('blue')
 
         '''Get the closest ball coordinates'''
-        self.closest_ball, self.closest_ball_distance = self.get_closest_ball()
+        self.get_closest_ball()
 
         '''Send the information about objects detected'''
         self.send_objects()
@@ -243,9 +243,11 @@ class ImageProcessor:
             distances = self.get_center_distances()
             try:
                 index_minimum_dist = distances.index(min(distances))
-                return self.ball_keypoints[index_minimum_dist], distances[index_minimum_dist]
+                self.closest_ball_distance = distances[index_minimum_dist]
+                self.closest_ball = self.ball_keypoints[index_minimum_dist]
             except:
-                return np.nan
+                self.closest_ball_distance = None
+                self.closest_ball = None
 
 
     '''BLACK LINES' DETECTION'''
@@ -267,10 +269,12 @@ class ImageProcessor:
             y2 = pt[1]
         f_cent_ball = interp1d([x1, x2], [y1, y2])
         for x_i in range(x1, x2):
-            if self.black_lines_image[x_i, int(f_cent_ball(x_i))] == 255:
-                print(x_i, int(f_cent_ball(x_i)))
-                return True
-        return False
+            y_interpolated = int(f_cent_ball(x_i))
+            if y_interpolated>=0 or y_interpolated<720:
+                if self.black_lines_image[x_i, int(f_cent_ball(x_i))] == 255:
+                    print(x_i, int(f_cent_ball(x_i)))
+                    return True
+            return False
 
 
     '''SENDING THE COORDINATES OF OBJECTS DETECTED'''
@@ -300,13 +304,14 @@ if __name__ == "__main__":
 
         rospy.init_node("image_processing")
 
+        # colours files are in .ros folder
         balltector, BALL_COLOR_LOWER_BOUND, BALL_COLOR_UPPER_BOUND = generate_detector_from_file("Ballvalues.txt")
 
         blue_gatector, BLUE_BASKET_LOWER_BOUND, BLUE_BASKET_UPPER_BOUND = generate_detector_from_file("Gatevalues_blue.txt")
         magenta_gatector, MAGENTA_BASKET_LOWER_BOUND, MAGENTA_BASKET_UPPER_BOUND = generate_detector_from_file("Gatevalues_magenta.txt")
 
-        BLACK_LOWER_BOUND = [0, 124, 77]
-        BLACK_UPPER_BOUND = [10, 215, 140]
+        BLACK_LOWER_BOUND = np.array([0, 124, 77])
+        BLACK_UPPER_BOUND = np.array([10, 215, 140])
 
         camera = ImageProcessor()
         camera.run()
@@ -322,3 +327,6 @@ if __name__ == "__main__":
 
     except rospy.ROSInterruptException:
         pass
+    finally:
+        print('Ending Image Processing...')
+        camera.pipeline.stop()

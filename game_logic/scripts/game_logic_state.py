@@ -31,6 +31,7 @@ class GameLogicState():
         # sending requests for running motors and thrower
         self.robot_movement_pub = rospy.Publisher('robot_movement', Point, queue_size=10)
         self.thrower_pub = rospy.Publisher("thrower", Int16, queue_size=10)
+        self.servos_pub = rospy.Publisher("servos", Point, queue_size=10)
 
 
         self.xbee = None
@@ -118,6 +119,10 @@ class GameLogicState():
     def thrower(self, speed):
         self.thrower_pub.publish(Int16(speed))
 
+    # launch servos(1: 720-825; 2: <700 - continuous mode; 2300 -> 100 - fast movement)
+    def servos(self, speed1, speed2):
+        self.servos_pub.publish(Point(speed1, speed2, 0))
+
 
     '''PID CONTROLLER FOR THE ANGULAR SPEED (DEPENDS ON THE X COORDINATE OF THE BALL CENTER)'''
     # 660 is the desirable value for self.ball_x to become while approaching the tracked ball
@@ -174,55 +179,55 @@ if __name__ == "__main__":
 
     game_logic = GameLogicState()
 
-    game_logic.state = 1
+    game_logic.state = 0
 
     sleep(1)
-
+    
     while not rospy.is_shutdown():
-
         # send the field number to image processing node
-        game_logic.field_num_pub(game_logic.ID[0])
+        game_logic.field_num_pub.publish(game_logic.ID[0])
 
-        if game_logic.state == 1:
-            print('State 1')
-            if game_logic.ball_x != None:
-                game_logic.state = 2
-                print("Found the ball.")
-            else:
-                game_logic.rotatingR()
+        game_logic.servos(730, 100)
 
-        elif game_logic.state == 2:
-            print('State 2')
-            # TODO: change the value from 640 to some other one as we have different frame for the new robot
-            if game_logic.ball_y > 640:
-                game_logic.xIe = 0
-                game_logic.state = 3
-                print("Close to the ball.")
-                pass
-
-            if game_logic.ball_x is None:
-                game_logic.xIe = 0
-                game_logic.state = 1
-            else:
-                game_logic.move_forwardPID()
-
-        elif game_logic.state == 3:
-            print('State 3')
-            if math.fabs(game_logic.basket_x - center_thrower) < 15:
-                game_logic.thrower(250)
-                # sleep(0.5)
-                game_logic.state = 4
-                print("Found the basket; x = " + str(game_logic.basket_x))
-            elif game_logic.basket_x >= center_thrower + 15:
-                game_logic.roundingL()
-            else:
-                game_logic.roundingR()
-
-        elif game_logic.state == 4:
-            print('State 4')
-            game_logic.thrower(250)
-            game_logic.move_forward_to_ball()
-            sleep(1)
-            game_logic.state = 1
+        # if game_logic.state == 1:
+        #     print('State 1')
+        #     if game_logic.ball_x != None:
+        #         game_logic.state = 2
+        #         print("Found the ball.")
+        #     else:
+        #         game_logic.rotatingR()
+        #
+        # elif game_logic.state == 2:
+        #     print('State 2')
+        #     # TODO: change the value from 640 to some other one as we have different frame for the new robot
+        #     if game_logic.ball_y > 640:
+        #         game_logic.xIe = 0
+        #         game_logic.state = 3
+        #         print("Close to the ball.")
+        #         pass
+        #
+        #     if game_logic.ball_x is None:
+        #         game_logic.xIe = 0
+        #         game_logic.state = 1
+        #     else:
+        #         game_logic.move_forwardPID()
+        #
+        # elif game_logic.state == 3:
+        #     print('State 3')
+        # if game_logic.basket_x is None:
+        #     game_logic.roundingR()
+        # elif math.fabs(game_logic.basket_x - center_thrower) < 15:
+        #     game_logic.thrower(250)
+        #     game_logic.state = 4
+        #     print("Found the basket; x = " + str(game_logic.basket_x))
+        # elif game_logic.basket_x >= center_thrower + 15:
+        #     game_logic.roundingL()
+        #
+        # elif game_logic.state == 4:
+        #     print('State 4')
+        #     game_logic.thrower(250)
+        #     game_logic.move_forward_to_ball()
+        #     sleep(1)
+        #     game_logic.state = 1
 
         rate.sleep()

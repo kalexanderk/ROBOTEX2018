@@ -3,7 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="d0ae755f-4fde-422a-9ac4-d113e41b80ee" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/.hg_archival.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/Motor/.Rhistory" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/Motor/motor.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/Motor/motor.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/QED/qed.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/QED/qed.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/RFManager/CircularBuffer2.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/RFManager/RFManager.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/RFManager/RFManager.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/USBDevice.lib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/mbed.bld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/code/pins.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/firmware/compiled_at_os.mbed.com/mbed_blinky.LPC1768.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hardware/scripts/serial_communication.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/scripts/serial_communication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image_processing/scripts/image_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_processing/scripts/image_processing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_commands.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +39,8 @@
       <file leaf-file-name="game_logic_state.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic_state.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="195" column="108" selection-start-line="195" selection-start-column="108" selection-end-line="195" selection-end-column="108" />
+            <state relative-caret-position="289">
+              <caret line="181" column="24" lean-forward="true" selection-start-line="181" selection-start-column="24" selection-end-line="181" selection-end-column="24" />
               <folding>
                 <element signature="e#48#60#0" expanded="true" />
               </folding>
@@ -30,16 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="image_processing.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
+      <file leaf-file-name="serial_communication.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_communication.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2462">
-              <caret line="156" selection-start-line="156" selection-end-line="156" />
-              <folding>
-                <element signature="n#!!doc" />
-                <element signature="e#321#1822#0" />
-                <element signature="e#1979#2016#0" />
-              </folding>
+            <state relative-caret-position="456">
+              <caret line="85" column="54" selection-start-line="85" selection-start-column="54" selection-end-line="85" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -118,8 +131,6 @@
         <option value="$PROJECT_DIR$/game_logic/scripts/ball_centering.py" />
         <option value="$PROJECT_DIR$/game_logic/scripts/additional_scripts/ball_centering.py" />
         <option value="$PROJECT_DIR$/image_processing/scripts/values.txt" />
-        <option value="$PROJECT_DIR$/image_processing/scripts/Calibration.py" />
-        <option value="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" />
         <option value="$PROJECT_DIR$/game_logic/scripts/game_logic.py" />
         <option value="$PROJECT_DIR$/game_logic/scripts/additional_scripts/omintest.py" />
         <option value="$PROJECT_DIR$/game_logic/scripts/omintest.py" />
@@ -128,8 +139,10 @@
         <option value="$PROJECT_DIR$/hardware/scripts/command_sender.py" />
         <option value="$PROJECT_DIR$/hardware/launch/hardware.launch" />
         <option value="$PROJECT_DIR$/image_processing/scripts/blacklines.py" />
-        <option value="$PROJECT_DIR$/hardware/scripts/serial_communication.py" />
+        <option value="$PROJECT_DIR$/image_processing/scripts/Calibration.py" />
         <option value="$PROJECT_DIR$/image_processing/scripts/image_processing.py" />
+        <option value="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" />
+        <option value="$PROJECT_DIR$/hardware/scripts/serial_communication.py" />
         <option value="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" />
       </list>
     </option>
@@ -556,7 +569,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542242554320</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="add magenta bounds; add instructions for controlling servos; calibrate the thrower">
+      <created>1542290963821</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1542290963821</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -566,12 +586,13 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="File Transfer" order="12" visible="true" weight="0.00990099" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.24972497" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32893288" />
-      <window_info anchor="right" id="Remote Host" order="3" weight="0.21804096" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1793027" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.1980198" />
+      <window_info anchor="right" id="Remote Host" order="3" visible="true" weight="0.17985612" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18372993" />
       <window_info anchor="right" id="R Packages" order="7" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="right" id="R Graphics" order="4" />
@@ -586,7 +607,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="File Transfer" order="12" visible="true" weight="0.26952696" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
     </layout>
     <layout-to-restore>
@@ -594,25 +614,25 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Remote Host" order="3" visible="true" weight="0.21472053" />
       <window_info anchor="right" id="SciView" order="6" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="R Graphics" order="4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="R Graphics" order="4" />
       <window_info anchor="right" id="R Packages" order="7" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22966242" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.06490649" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32946146" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="File Transfer" order="12" visible="true" weight="0.26952696" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.24862486" />
     </layout-to-restore>
@@ -645,7 +665,8 @@
     <MESSAGE value="add magenta bounds; add the condition to know enemy's color by parsing xbee command; update firmware and add instructions for controlling servos; make linear speed PID; calibrate the thrower" />
     <MESSAGE value="add magenta bounds; update firmware and add instructions for controlling servos; make linear speed PID; calibrate the thrower" />
     <MESSAGE value="add magenta bounds; update firmware and add instructions for controlling servos; calibrate the thrower" />
-    <option name="LAST_COMMIT_MESSAGE" value="add magenta bounds; update firmware and add instructions for controlling servos; calibrate the thrower" />
+    <MESSAGE value="add magenta bounds; add instructions for controlling servos; calibrate the thrower" />
+    <option name="LAST_COMMIT_MESSAGE" value="add magenta bounds; add instructions for controlling servos; calibrate the thrower" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -853,9 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_commands.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-451" />
@@ -909,13 +927,6 @@
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/GateCalibration.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/image_processing/scripts/Calibration.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="301" column="12" lean-forward="true" selection-start-line="301" selection-start-column="12" selection-end-line="301" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/game_logic/scripts/additional_scripts/game_logic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -935,10 +946,11 @@
         <state relative-caret-position="-456" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py">
+    <entry file="file://$PROJECT_DIR$/main_commands.png" />
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/Calibration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+        <state relative-caret-position="8265">
+          <caret line="440" column="4" selection-start-line="440" selection-start-column="4" selection-end-line="440" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -949,29 +961,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_communication.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="874">
-          <caret line="50" column="38" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2462">
-          <caret line="156" selection-start-line="156" selection-end-line="156" />
+        <state relative-caret-position="209">
+          <caret line="13" column="42" lean-forward="true" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
           <folding>
             <element signature="n#!!doc" />
-            <element signature="e#321#1822#0" />
+            <element signature="e#122#134#0" expanded="true" />
             <element signature="e#1979#2016#0" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="54" column="24" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_communication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="85" column="54" selection-start-line="85" selection-start-column="54" selection-end-line="85" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic_state.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="195" column="108" selection-start-line="195" selection-start-column="108" selection-end-line="195" selection-end-column="108" />
+        <state relative-caret-position="289">
+          <caret line="181" column="24" lean-forward="true" selection-start-line="181" selection-start-column="24" selection-end-line="181" selection-end-column="24" />
           <folding>
             <element signature="e#48#60#0" expanded="true" />
           </folding>
