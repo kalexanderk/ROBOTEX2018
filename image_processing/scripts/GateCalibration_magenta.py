@@ -64,7 +64,7 @@ images = np.hstack((bg_removed, depth_colormap))
 
 #detectcontrl = detectcontrl[r[0]:r[1],r[2]:r[3]]
 
-f = open("/home/megatron/.ros/Gatevalues_magenta.txt", "r")
+f = open("Gatevalues_magenta.txt", "r")
 
 lH = int(f.readline().strip('\n'))
 lS = int(f.readline().strip('\n'))
@@ -439,7 +439,7 @@ try:
             break
 
 finally:
-    f = open("/home/megatron/.ros/Gatevalues_magenta.txt", "w")
+    f = open("Gatevalues_magenta.txt", "w")
 
     f.write(str(lH) + "\n")
     f.write(str(lS) + "\n")

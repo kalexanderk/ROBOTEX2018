@@ -295,7 +295,7 @@ class ImageProcessor:
 
     '''GETTING FIELD NUMBER FROM GAME LOGIC NODE'''
     def field_number_callback(self, message):
-        self.field_number = message
+        self.field_number = str(message)[-2]
 
 
 if __name__ == "__main__":

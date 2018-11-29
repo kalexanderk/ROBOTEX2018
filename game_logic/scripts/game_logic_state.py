@@ -7,7 +7,6 @@ from geometry_msgs.msg import Point
 from std_msgs.msg import String
 from std_msgs.msg import Int16
 import math
-import time
 
 center_thrower = 660
 
@@ -18,8 +17,7 @@ class GameLogicState():
         '''TODO: HOW IS IT DEFINED FOR OUR ROBOT?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
         # self.ID[0] - field number (A or B)
         # self.ID[1] - robot number (X, A, B, C or D)
-        self.ID = 'AB'
-
+        self.ID = 'BB'
         #publisher for sending the field number to image processing node
         self.field_num_pub = rospy.Publisher("field_number", String, queue_size=120)
 
@@ -125,6 +123,31 @@ class GameLogicState():
     # launch servos(1: 720-825; 2: <700 - continuous mode; 2300 -> 100 - fast movement)
     def servos(self, speed1, speed2):
         self.servos_pub.publish(Point(speed1, speed2, 0))
+	
+    # Power from 0 to 125, angle from 720-835
+    def throw(self, power, angle):
+        global counter_t
+        global flag_t
+        if flag_t == 0:
+            self.thrower(power+125)
+            if counter_t < 0 or counter_t > 80:
+                counter_t = 0
+            elif counter_t == 0:
+                self.servos(angle, 0)
+                print("angle set")
+                counter_t += 1
+            elif counter_t == 10:
+                print("sleep done")
+                self.servos(angle, 4000)
+                counter_t += 1
+            elif counter_t == 80:
+                self.servos(angle, 0)
+                #counter_t = 0
+                flag_t = 1
+            else:
+                counter_t += 1
+            print(counter_t)
+
 
 
     '''PID CONTROLLER FOR THE ANGULAR SPEED (DEPENDS ON THE X COORDINATE OF THE BALL CENTER)'''
@@ -153,6 +176,7 @@ class GameLogicState():
         # current error
         currentD_e = self.ball_dist - 0.1
 
+
         self.dIe += currentD_e
         dDe = (currentD_e - self.previousD_e)
 
@@ -177,6 +201,11 @@ class GameLogicState():
 
 
 if __name__ == "__main__":
+    
+    global counter_t
+    counter_t = 0
+    global flag_t
+    flag_t = 0
     rospy.init_node('game_logic', anonymous=True)
     rate = rospy.Rate(25)
 
@@ -185,54 +214,60 @@ if __name__ == "__main__":
     game_logic.state = 1
 
     sleep(1)
-    
+
     while not rospy.is_shutdown():
         # send the field number to image processing node
+
         game_logic.field_num_pub.publish(game_logic.ID[0])
 
+        #mes = input().strip()
 
-        if game_logic.state == 1:
-            print('State 1')
-            if game_logic.ball_x != None:
-                game_logic.state = 2
-                print("Found the ball.")
-            else:
-                game_logic.rotatingR()
+        #if mes != None and flag_t == 0:
+        game_logic.throw(47, 720)
+        #if flag_t == 1:
+        #    mes = None
+        #    flag_t = 0
 
-        elif game_logic.state == 2:
-            print('State 2')
-            # TODO: change the value from 640 to some other one as we have different frame for the new robot
-            if game_logic.ball_y > 710:
-                game_logic.xIe = 0
-                game_logic.state = 3
-                print("Close to the ball.")
-                pass
-
-            if game_logic.ball_x is None:
-                game_logic.xIe = 0
-                game_logic.state = 1
-            else:
-                game_logic.move_forwardPID()
-        elif game_logic.state == 3:
-            t_end = time.time() + 15
-            while time.time() < t_end:
-                game_logic.move_forward_to_ball()
-            game_logic.servos(700, 4000)
-            # print('State 3')
-            # if game_logic.basket_x is None:
-            #     game_logic.roundingR()
-            # elif math.fabs(game_logic.basket_x - center_thrower) < 15:
-            #     game_logic.thrower(250)
-            #     game_logic.state = 4
-            #     print("Found the basket; x = " + str(game_logic.basket_x))
-            # elif game_logic.basket_x >= center_thrower + 15:
-            #     game_logic.roundingL()
-
-        elif game_logic.state == 4:
-            print('State 4')
-            game_logic.thrower(250)
-            game_logic.move_forward_to_ball()
-            sleep(1)
-            game_logic.state = 1
+        #
+        # if game_logic.state == 1:
+        #     print('State 1')
+        #     if game_logic.ball_x != None:
+        #         game_logic.state = 2
+        #         print("Found the ball.")
+        #     else:
+        #         game_logic.rotatingR()
+        #
+        # elif game_logic.state == 2:
+        #     print('State 2')
+        #     if game_logic.ball_y > 710:
+        #         game_logic.xIe = 0
+        #         game_logic.state = 3
+        #         print("Close to the ball.")
+        #         counter_t = 0
+        #         pass
+        #
+        #     if game_logic.ball_x is None:
+        #         game_logic.xIe = 0
+        #         game_logic.state = 1
+        #     else:
+        #         game_logic.move_forwardPID()
+        #
+        # elif game_logic.state == 3:
+        #     print('State 3')
+        #
+        #     if game_logic.basket_x is None:
+        #         game_logic.roundingR()
+        #     elif math.fabs(game_logic.basket_x - center_thrower) < 15:
+        #         game_logic.state = 4
+        #         print("Found the basket; x = " + str(game_logic.basket_x))
+        #     elif game_logic.basket_x >= center_thrower + 15:
+        #         game_logic.roundingL()
+        #
+        #
+        # elif game_logic.state == 4:
+        #     game_logic.throw(100, 720)
+        #     if flag_t == 1:
+        #         game_logic.state = 1
+        #     flag_t = 0
 
         rate.sleep()
