@@ -54,10 +54,10 @@ class GameLogicState():
 
         self.state = 0
         #state 0 - wait for XBEE command
-        #state 1 - look for the ball and center
-        #state 2 - approach the ball
-        #state 3 - center for the basket
-        #state 4 - charge the ball towards the basket
+        #state 1 - look for the ball
+        #state 2 - approach to the ball and grab it
+        #state 3 - spin and center the opponet's basket
+        #state 4 - throw the ball into the basket
 
         self.servos(0,0)
 
@@ -95,7 +95,7 @@ class GameLogicState():
             self.basket_y = None
             self.basket_dist = None
 
-    #in HTERM the Baud rate should be 9600. We are sending ASCII commands.
+    #in HTERM the Baud rate should be 9600; ASCII commands are being sent
     def new_xbee_callback(self, message):
         received = str(message).strip('data: "n\<>-').split(":")
         if received[0] == 'ref':
@@ -126,12 +126,6 @@ class GameLogicState():
     def stop(self):
         self.robot_movement_pub.publish(Point(0, 0, 0))
 
-    def roundingL(self):
-        self.robot_movement_pub.publish(Point(12, 10, 51))
-
-    def roundingR(self):
-        self.robot_movement_pub.publish(Point(12, 170, -51))
-
     # values are from 125 to 250
     def thrower(self, speed):
         self.thrower_pub.publish(Int16(speed))
@@ -140,7 +134,7 @@ class GameLogicState():
     def servos(self, speed1, speed2):
         self.servos_pub.publish(Point(speed1, speed2, 0))
 	
-    # Power from 0 to 125, angle from 720-835
+    # power is from 0 to 125, angle is from 720-835
     def throw(self, power, angle):
         global counter_t
         global flag_t
@@ -164,10 +158,6 @@ class GameLogicState():
                 counter_t += 1
             print(counter_t)
 
-    def theorem_Pifagor(self, slope_distance, camera_height=0.29):
-        return math.sqrt(slope_distance**2 - camera_height**2) - 0.087 - 0.162
-
-
     '''PID CONTROLLER FOR THE ANGULAR SPEED (DEPENDS ON THE X COORDINATE OF THE BALL CENTER)'''
     # 710 is the desirable value for self.ball_x to become while approaching the tracked ball - 12 cm from robot
     def xPID(self):
@@ -189,7 +179,7 @@ class GameLogicState():
         return int(u)
 
     '''PID CONTROLLER FOR THE LINEAR SPEED (DEPENDS ON A DISTANCE TO THE BALL)'''
-    # 0.1 is the desirable value for self.ball_dist to become while approaching the tracked ball
+    # ??? (MEASURE!) is the desirable value for self.ball_dist to become while approaching the tracked ball
     def dPID(self):
         # current error
         currentD_e = self.ball_dist - 0.1
@@ -235,18 +225,11 @@ if __name__ == "__main__":
 
     while not rospy.is_shutdown():
         # send the field number to image processing node
-
         game_logic.field_num_pub.publish(game_logic.ID[0])
 
-        #mes = input().strip()
+        game_logic.throw(np.round(game_logic.f_power(game_logic.basket_dist)),
+                         #                      np.round(game_logic.f_angle(game_logic.basket_dist)))
 
-        #if mes != None and flag_t == 0:
-        game_logic.throw(game_logic.f_power(game_logic.basket_dist), game_logic.f_angle(game_logic.basket_dist))
-        #if flag_t == 1:
-        #    mes = None
-        #    flag_t = 0
-
-        #
         # if game_logic.state == 1:
         #     print('State 1')
         #     if game_logic.ball_x != None:
@@ -258,9 +241,9 @@ if __name__ == "__main__":
         # elif game_logic.state == 2:
         #     print('State 2')
         #     if game_logic.ball_y > 710:
+        #         # TODO: here use the function to approach close to the ball and grab it
         #         game_logic.xIe = 0
         #         game_logic.state = 3
-        #         print("Close to the ball.")
         #         counter_t = 0
         #         pass
         #
@@ -269,21 +252,23 @@ if __name__ == "__main__":
         #         game_logic.state = 1
         #     else:
         #         game_logic.move_forwardPID()
+        #         '''Will approach only approximately 12 cm to the ball.'''
         #
         # elif game_logic.state == 3:
         #     print('State 3')
         #
         #     if game_logic.basket_x is None:
-        #         game_logic.roundingR()
+        #         game_logic.rotatingL()
         #     elif math.fabs(game_logic.basket_x - center_thrower) < 15:
         #         game_logic.state = 4
         #         print("Found the basket; x = " + str(game_logic.basket_x))
         #     elif game_logic.basket_x >= center_thrower + 15:
-        #         game_logic.roundingL()
+        #         game_logic.rotatingR()
         #
         #
         # elif game_logic.state == 4:
-        #     game_logic.throw(100, 720)
+        #     game_logic.throw(np.round(game_logic.f_power(game_logic.basket_dist)),
+        #                      np.round(game_logic.f_angle(game_logic.basket_dist)))
         #     if flag_t == 1:
         #         game_logic.state = 1
         #     flag_t = 0
