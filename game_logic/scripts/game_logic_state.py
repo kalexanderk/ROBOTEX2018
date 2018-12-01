@@ -7,7 +7,8 @@ from geometry_msgs.msg import Point
 from std_msgs.msg import String
 from std_msgs.msg import Int16
 import math
-
+import numpy as np
+from scipy import interpolate
 center_thrower = 660
 
 class GameLogicState():
@@ -42,6 +43,9 @@ class GameLogicState():
         self.basket_y = None
         self.basket_dist = None
 
+        '''Defining the functions for throw operation'''
+        self.thrower_values_interpolation()
+
         # the integral error and previous error must be 0 at initialization of PID controller
         self.xIe = 0
         self.previousX_e = 0
@@ -56,6 +60,18 @@ class GameLogicState():
         #state 4 - charge the ball towards the basket
 
         self.servos(0,0)
+
+    '''All the calculations below are based on the measurements during experiments'''
+    def thrower_values_interpolation(self):
+        angle = list(np.repeat(720, 21)) + list(np.repeat(730, 4)) + [740]
+        throw_value = list(np.repeat(42, 2)) + list(np.repeat(45, 4)) + list(np.repeat(46, 2)) + \
+                      [47, 49, 51, 53, 56, 58, 60, 63, 65, 65, 65, 66, 66, 71, 71, 73, 74, 76]
+        dist = [0.32, 0.4, 0.5, 0.61, 0.71, 0.81, 0.91, 0.99, 1.1, 1.18, 1.29, 1.39, 1.48, 1.59,
+                1.685, 1.77, 1.88, 1.99, 2.07, 2.15, 2.24, 2.37, 2.42, 2.53, 2.65, 2.83]
+        '''Interpolation using cubic splines'''
+        self.f_angle = interpolate.interp1d(dist, angle, kind="cubic")
+        self.f_power = interpolate.interp1d(dist, throw_value, kind="cubic")
+
 
     def new_object_callback_objects(self, message):
         position_ball = message.data.split("\n")[0]
@@ -148,10 +164,12 @@ class GameLogicState():
                 counter_t += 1
             print(counter_t)
 
+    def theorem_Pifagor(self, slope_distance, camera_height=0.29):
+        return math.sqrt(slope_distance**2 - camera_height**2) - 0.087 - 0.162
 
 
     '''PID CONTROLLER FOR THE ANGULAR SPEED (DEPENDS ON THE X COORDINATE OF THE BALL CENTER)'''
-    # 710 is the desirable value for self.ball_x to become while approaching the tracked ball
+    # 710 is the desirable value for self.ball_x to become while approaching the tracked ball - 12 cm from robot
     def xPID(self):
         # current error
         currentX_e = 710 - self.ball_x
@@ -223,7 +241,7 @@ if __name__ == "__main__":
         #mes = input().strip()
 
         #if mes != None and flag_t == 0:
-        game_logic.throw(47, 720)
+        game_logic.throw(game_logic.f_power(game_logic.basket_dist), game_logic.f_angle(game_logic.basket_dist))
         #if flag_t == 1:
         #    mes = None
         #    flag_t = 0

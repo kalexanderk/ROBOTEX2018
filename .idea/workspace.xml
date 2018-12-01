@@ -4,9 +4,6 @@
     <list default="true" id="d0ae755f-4fde-422a-9ac4-d113e41b80ee" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_processing/scripts/GateCalibration_magenta.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_processing/scripts/GateCalibration_magenta.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_processing/scripts/image_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_processing/scripts/image_processing.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,8 +21,8 @@
       <file leaf-file-name="game_logic_state.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic_state.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="225" column="33" lean-forward="true" selection-start-line="225" selection-start-column="33" selection-end-line="225" selection-end-column="33" />
+            <state relative-caret-position="627">
+              <caret line="246" column="23" lean-forward="true" selection-start-line="246" selection-start-column="23" selection-end-line="246" selection-end-column="23" />
               <folding>
                 <element signature="e#48#60#0" expanded="true" />
               </folding>
@@ -144,6 +141,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -248,7 +246,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -566,7 +563,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543429944537</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="calibrate the thrower; finish PID; finish the logic">
+      <created>1543513114586</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1543513114586</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -576,13 +580,12 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="File Transfer" order="12" visible="true" weight="0.20572057" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.24972497" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.1980198" />
-      <window_info active="true" anchor="right" id="Remote Host" order="3" visible="true" weight="0.18871057" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19977863" />
+      <window_info anchor="right" id="Remote Host" order="3" weight="0.18871057" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20254566" />
       <window_info anchor="right" id="R Packages" order="7" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="right" id="R Graphics" order="4" />
@@ -597,10 +600,10 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="File Transfer" order="12" visible="true" weight="0.20572057" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
@@ -611,20 +614,21 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="R Graphics" order="4" />
+      <window_info anchor="bottom" id="Python Console" order="11" weight="0.24862486" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
       <window_info anchor="right" id="R Packages" order="7" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22966242" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.06490649" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32946146" />
       <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="File Transfer" order="12" visible="true" weight="0.26952696" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Database" order="5" />
-      <window_info anchor="bottom" id="Python Console" order="11" weight="0.24862486" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22966242" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -976,8 +980,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic_state.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="225" column="33" lean-forward="true" selection-start-line="225" selection-start-column="33" selection-end-line="225" selection-end-column="33" />
+        <state relative-caret-position="627">
+          <caret line="246" column="23" lean-forward="true" selection-start-line="246" selection-start-column="23" selection-end-line="246" selection-end-column="23" />
           <folding>
             <element signature="e#48#60#0" expanded="true" />
           </folding>
