@@ -18,7 +18,7 @@ class GameLogicState():
         '''TODO: HOW IS IT DEFINED FOR OUR ROBOT?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
         # self.ID[0] - field number (A or B)
         # self.ID[1] - robot number (X, A, B, C or D)
-        self.ID = 'BB'
+        self.ID = 'AB'
         #publisher for sending the field number to image processing node
         self.field_num_pub = rospy.Publisher("field_number", String, queue_size=120)
 
@@ -100,7 +100,7 @@ class GameLogicState():
         received = str(message).strip('data: "n\<>-').split(":")
         if received[0] == 'ref':
             addid = received[1][1:3]
-            if addid == self.ID:
+            if addid == self.ID or addid == self.ID[0] + 'X':
                 cmd = received[1][3:]
                 # the robot must respond to all commands that are sent to this specific robot
                 #TODO: ADD CHECKING WHETHER IT'S SENT TO OUR ROBOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -228,7 +228,7 @@ if __name__ == "__main__":
         game_logic.field_num_pub.publish(game_logic.ID[0])
 
         game_logic.throw(np.round(game_logic.f_power(game_logic.basket_dist)),
-                         #                      np.round(game_logic.f_angle(game_logic.basket_dist)))
+                                                np.round(game_logic.f_angle(game_logic.basket_dist)))
 
         # if game_logic.state == 1:
         #     print('State 1')
