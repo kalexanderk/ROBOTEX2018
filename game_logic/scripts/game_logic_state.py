@@ -8,7 +8,7 @@ from std_msgs.msg import String
 from std_msgs.msg import Int16
 import math
 import numpy as np
-from scipy import interpolate
+from scipy.interpolate import interp1d
 center_thrower = 660
 
 class GameLogicState():
@@ -69,8 +69,8 @@ class GameLogicState():
         dist = [0.32, 0.4, 0.5, 0.61, 0.71, 0.81, 0.91, 0.99, 1.1, 1.18, 1.29, 1.39, 1.48, 1.59,
                 1.685, 1.77, 1.88, 1.99, 2.07, 2.15, 2.24, 2.37, 2.42, 2.53, 2.65, 2.83]
         '''Interpolation using cubic splines'''
-        self.f_angle = interpolate.interp1d(dist, angle, kind="cubic")
-        self.f_power = interpolate.interp1d(dist, throw_value, kind="cubic")
+        self.f_angle = interp1d(dist, angle, kind="cubic")
+        self.f_power = interp1d(dist, throw_value, kind="cubic")
 
 
     def new_object_callback_objects(self, message):
@@ -135,7 +135,9 @@ class GameLogicState():
         self.servos_pub.publish(Point(speed1, speed2, 0))
 	
     # power is from 0 to 125, angle is from 720-835
-    def throw(self, power, angle):
+    def throw(self):
+        power = np.round(self.f_power(self.basket_dist))
+        angle = np.round(self.f_angle(self.basket_dist))
         global counter_t
         global flag_t
         if flag_t == 0:
@@ -219,58 +221,63 @@ if __name__ == "__main__":
 
     game_logic = GameLogicState()
 
-    game_logic.state = 1
+    game_logic.state = 0
 
     sleep(1)
 
     while not rospy.is_shutdown():
-        # send the field number to image processing node
+        # send the field number to image processing node: A - magenta, B - blue
         game_logic.field_num_pub.publish(game_logic.ID[0])
 
-        game_logic.throw(np.round(game_logic.f_power(game_logic.basket_dist)),
-                                                np.round(game_logic.f_angle(game_logic.basket_dist)))
+        if game_logic.basket_dist is not None and \
+                math.fabs(game_logic.basket_dist - 1.575) <= 1.255:
+            game_logic.throw()
 
-        # if game_logic.state == 1:
-        #     print('State 1')
-        #     if game_logic.ball_x != None:
-        #         game_logic.state = 2
-        #         print("Found the ball.")
-        #     else:
-        #         game_logic.rotatingR()
-        #
-        # elif game_logic.state == 2:
-        #     print('State 2')
-        #     if game_logic.ball_y > 710:
-        #         # TODO: here use the function to approach close to the ball and grab it
-        #         game_logic.xIe = 0
-        #         game_logic.state = 3
-        #         counter_t = 0
-        #         pass
-        #
-        #     if game_logic.ball_x is None:
-        #         game_logic.xIe = 0
-        #         game_logic.state = 1
-        #     else:
-        #         game_logic.move_forwardPID()
-        #         '''Will approach only approximately 12 cm to the ball.'''
-        #
-        # elif game_logic.state == 3:
-        #     print('State 3')
-        #
-        #     if game_logic.basket_x is None:
-        #         game_logic.rotatingL()
-        #     elif math.fabs(game_logic.basket_x - center_thrower) < 15:
-        #         game_logic.state = 4
-        #         print("Found the basket; x = " + str(game_logic.basket_x))
-        #     elif game_logic.basket_x >= center_thrower + 15:
-        #         game_logic.rotatingR()
-        #
-        #
-        # elif game_logic.state == 4:
-        #     game_logic.throw(np.round(game_logic.f_power(game_logic.basket_dist)),
-        #                      np.round(game_logic.f_angle(game_logic.basket_dist)))
-        #     if flag_t == 1:
-        #         game_logic.state = 1
-        #     flag_t = 0
+        if game_logic.state == 1:
+            print('State 1')
+            if game_logic.ball_x is not None:
+                game_logic.state = 2
+                print("Found the ball!")
+            else:
+                game_logic.rotatingR()
 
+        elif game_logic.state == 2:
+            print('State 2')
+            if game_logic.ball_y > 710:
+                # TODO: here make the function to approach closer to the ball and grab it
+                game_logic.xIe = 0
+                game_logic.state = 3
+                counter_t = 0
+                pass
+
+            if game_logic.ball_x is None:
+                game_logic.xIe = 0
+                game_logic.state = 1
+            else:
+                game_logic.move_forwardPID()
+                '''Will approach only approximately 12 cm to the ball.'''
+
+        elif game_logic.state == 3:
+            print('State 3')
+
+            if game_logic.basket_x is None:
+                game_logic.rotatingL()
+            elif math.fabs(game_logic.basket_x - center_thrower) < 15:
+                game_logic.state = 4
+                print("Found the basket; x = " + str(game_logic.basket_x))
+            elif game_logic.basket_x >= center_thrower + 15:
+                game_logic.rotatingR()
+
+        elif game_logic.state == 4:
+            print('State 4')
+
+            if game_logic.basket_dist is not None and \
+                    math.fabs(game_logic.basket_dist - 1.575) <= 1.255:
+                game_logic.throw()
+                if flag_t == 1:
+                    game_logic.state = 1
+                flag_t = 0
+            else:
+                print('Go closer to the basket or further from it to get into the range(0.32,2.83).')
+                # TODO: make such a function
         rate.sleep()
