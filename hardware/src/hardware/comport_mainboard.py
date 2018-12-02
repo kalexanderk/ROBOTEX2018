@@ -82,13 +82,14 @@ class ComportMainboard(threading.Thread):
     def close(self):
         if self.connection is not None and self.connection.isOpen():  # close coil
             try:
-		self.launch_servos(0,0)
+                self.launch_servos(0,0)
                 self.connection.close()
 		
                 print('mainboard: connection closed')
             except:
                 print('mainboard: err connection close')
-            self.connection = None
+                self.read()
+                self.connection = None
 
     def run(self):
         if self.open():  # open serial connections

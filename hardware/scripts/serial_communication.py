@@ -97,9 +97,10 @@ class SerialCommunication():
 
 if __name__ == '__main__':
     rospy.init_node('serial_communication', anonymous=True)
-    rate = rospy.Rate(25)
+    rate = rospy.Rate(50)
     serial_communication = SerialCommunication()
 
     while not rospy.is_shutdown():
         serial_communication.read_command()
         rate.sleep()
+    serial_communication.read_command()

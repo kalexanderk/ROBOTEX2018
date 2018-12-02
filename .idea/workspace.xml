@@ -4,6 +4,8 @@
     <list default="true" id="d0ae755f-4fde-422a-9ac4-d113e41b80ee" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hardware/scripts/serial_communication.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/scripts/serial_communication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,20 +23,8 @@
       <file leaf-file-name="game_logic_state.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic_state.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="265" column="36" lean-forward="true" selection-start-line="265" selection-start-column="36" selection-end-line="265" selection-end-column="36" />
-              <folding>
-                <element signature="e#48#60#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="image_processing.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-632">
-              <caret line="273" column="48" selection-start-line="273" selection-start-column="48" selection-end-line="273" selection-end-column="48" />
+            <state relative-caret-position="228">
+              <caret line="238" column="26" lean-forward="true" selection-start-line="238" selection-start-column="26" selection-end-line="238" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -122,10 +112,10 @@
         <option value="$PROJECT_DIR$/hardware/launch/hardware.launch" />
         <option value="$PROJECT_DIR$/image_processing/scripts/blacklines.py" />
         <option value="$PROJECT_DIR$/image_processing/scripts/Calibration.py" />
-        <option value="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" />
-        <option value="$PROJECT_DIR$/hardware/scripts/serial_communication.py" />
         <option value="$PROJECT_DIR$/image_processing/scripts/image_processing.py" />
         <option value="$PROJECT_DIR$/game_logic/scripts/game_logic_state.py" />
+        <option value="$PROJECT_DIR$/hardware/scripts/serial_communication.py" />
+        <option value="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" />
       </list>
     </option>
   </component>
@@ -150,7 +140,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -255,6 +244,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -600,7 +590,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543670809640</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="finish PID; finish the logic">
+      <created>1543676285460</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1543676285460</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -612,11 +609,11 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="File Transfer" order="12" weight="0.20572057" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="11" visible="true" weight="0.24972497" />
+      <window_info anchor="bottom" id="Python Console" order="11" weight="0.25082508" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.1980198" />
-      <window_info anchor="right" id="Remote Host" order="3" visible="true" weight="0.18871057" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20254566" />
+      <window_info active="true" anchor="right" id="Remote Host" order="3" visible="true" weight="0.18871057" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.20531267" />
       <window_info anchor="right" id="R Packages" order="7" />
       <window_info anchor="bottom" id="Docker" order="7" />
       <window_info anchor="right" id="R Graphics" order="4" />
@@ -636,29 +633,29 @@
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
-      <window_info anchor="right" id="Remote Host" order="3" visible="true" weight="0.21472053" />
-      <window_info anchor="right" id="SciView" order="6" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="right" id="Remote Host" order="3" visible="true" weight="0.18871057" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20531267" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="R Graphics" order="4" />
-      <window_info anchor="bottom" id="Python Console" order="11" weight="0.24862486" />
+      <window_info anchor="bottom" id="File Transfer" order="12" visible="true" weight="0.20572057" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.07480748" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32893288" />
       <window_info anchor="right" id="R Packages" order="7" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.06490649" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32946146" />
-      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.33078602" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="File Transfer" order="12" visible="true" weight="0.26952696" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.06490649" />
       <window_info anchor="right" id="Database" order="5" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22966242" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.1980198" />
+      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="SciView" order="6" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Python Console" order="11" weight="0.25082508" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -981,41 +978,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5073">
+          <caret line="273" column="48" selection-start-line="273" selection-start-column="48" selection-end-line="273" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/hardware/scripts/command_sender.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
+        <state relative-caret-position="760">
           <caret line="44" column="18" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="54" column="24" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="24" />
+        <state relative-caret-position="13">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_communication.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="71" column="52" lean-forward="true" selection-start-line="71" selection-start-column="52" selection-end-line="71" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/image_processing/scripts/image_processing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-632">
-          <caret line="273" column="48" selection-start-line="273" selection-start-column="48" selection-end-line="273" selection-end-column="48" />
+        <state relative-caret-position="673">
+          <caret line="101" selection-start-line="101" selection-end-line="101" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game_logic/scripts/game_logic_state.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="265" column="36" lean-forward="true" selection-start-line="265" selection-start-column="36" selection-end-line="265" selection-end-column="36" />
-          <folding>
-            <element signature="e#48#60#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="228">
+          <caret line="238" column="26" lean-forward="true" selection-start-line="238" selection-start-column="26" selection-end-line="238" selection-end-column="26" />
         </state>
       </provider>
     </entry>

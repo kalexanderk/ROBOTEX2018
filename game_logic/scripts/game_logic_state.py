@@ -18,7 +18,7 @@ class GameLogicState():
         '''TODO: HOW IS IT DEFINED FOR OUR ROBOT?!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'''
         # self.ID[0] - field number (A or B)
         # self.ID[1] - robot number (X, A, B, C or D)
-        self.ID = 'AB'
+        self.ID = 'BB'
         #publisher for sending the field number to image processing node
         self.field_num_pub = rospy.Publisher("field_number", String, queue_size=120)
 
@@ -29,9 +29,9 @@ class GameLogicState():
         self.xbee_sub = rospy.Subscriber("xbee_commands", String, self.new_xbee_callback)
         self.xbee_send_pub = rospy.Publisher("xbee_send", String, queue_size=120)
         # sending requests for running motors and thrower
-        self.robot_movement_pub = rospy.Publisher('robot_movement', Point, queue_size=10)
-        self.thrower_pub = rospy.Publisher("thrower", Int16, queue_size=10)
-        self.servos_pub = rospy.Publisher("servos", Point, queue_size=10)
+        self.robot_movement_pub = rospy.Publisher('robot_movement', Point, queue_size=15)
+        self.thrower_pub = rospy.Publisher("thrower", Int16, queue_size=15)
+        self.servos_pub = rospy.Publisher("servos", Point, queue_size=15)
 
 
         self.xbee = None
@@ -225,9 +225,21 @@ if __name__ == "__main__":
 
     sleep(1)
 
+    game_logic.servos(0, 4000)
+
+
     while not rospy.is_shutdown():
         # send the field number to image processing node: A - magenta, B - blue
         game_logic.field_num_pub.publish(game_logic.ID[0])
+
+
+        game_logic.move_forward_to_ball()
+        if counter_t == 30:
+            game_logic.servos(0, 0)
+            #counter_t = 0
+            #game_logic.state = 4
+            pass
+        counter_t += 1
 
         if game_logic.basket_dist is not None and \
                 math.fabs(game_logic.basket_dist - 1.575) <= 1.255:
@@ -259,17 +271,29 @@ if __name__ == "__main__":
 
         elif game_logic.state == 3:
             print('State 3')
+            game_logic.servos(0, 4000)
+            game_logic.move_forward_to_ball()
+            if counter_t == 30:
+                game_logic.servos(0, 0)
+                counter_t = 0
+                game_logic.state = 4
+                pass
+            counter_t += 1
+
+
+        elif game_logic.state == 4:
+            print('State 4')
 
             if game_logic.basket_x is None:
                 game_logic.rotatingL()
             elif math.fabs(game_logic.basket_x - center_thrower) < 15:
-                game_logic.state = 4
+                game_logic.state = 5
                 print("Found the basket; x = " + str(game_logic.basket_x))
             elif game_logic.basket_x >= center_thrower + 15:
                 game_logic.rotatingR()
 
-        elif game_logic.state == 4:
-            print('State 4')
+        elif game_logic.state == 5:
+            print('State 5')
 
             if game_logic.basket_dist is not None and \
                     math.fabs(game_logic.basket_dist - 1.575) <= 1.255:
@@ -279,5 +303,7 @@ if __name__ == "__main__":
                 flag_t = 0
             else:
                 print('Go closer to the basket or further from it to get into the range(0.32,2.83).')
-                # TODO: make such a function
+                game_logic.move_forward_to_ball()
         rate.sleep()
+
+    game_logic.servos(0, 0)
