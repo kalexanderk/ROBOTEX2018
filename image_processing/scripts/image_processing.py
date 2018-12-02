@@ -74,7 +74,7 @@ class ImageProcessor:
         os.system('v4l2-ctl --device=/dev/video2 -c exposure_auto_priority=0')
 
         self.object_publisher = rospy.Publisher(
-            "image_processing/objects", String, queue_size=10)
+            "image_processing/objects", String, queue_size=50)
         self.field_number_sub = rospy.Subscriber("field_number",
                                                  String, self.field_number_callback)
         self.balls_in_frame = []

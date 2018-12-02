@@ -27,7 +27,7 @@ class SerialCommunication():
         self.main_board.run()
         self.started = True
 
-        # listening to the commands from game logic node
+        '''Listening to the commands from game logic node'''
         self.sub_movement = rospy.Subscriber("robot_movement", Point, self.new_object_callback_wheels)
         self.sub_thrower = rospy.Subscriber("thrower", Int16, self.new_object_callback_thrower)
         self.sub_servos = rospy.Subscriber("servos", Point, self.new_object_callback_servos)
@@ -43,6 +43,14 @@ class SerialCommunication():
         self.wheel_two_speed = 0
         self.wheel_three_speed = 0
 
+        self.servoq = []
+        self.throwerq = []
+        self.motorq = []
+
+        # to read from buffer every 0.5 sec (for self.read_command(self, args))
+        # rospy.Timer(rospy.Duration(0.5), self.read_command)
+
+
     def get_speed_for_wheel(self, wheel_angle, drive_angle,
                             robot_speed, wheel_distance_from_center,
                             robot_angular_velocity):
@@ -55,7 +63,9 @@ class SerialCommunication():
         self.wheel_one_speed = w1
         self.wheel_two_speed = w2
         self.wheel_three_speed = w3
+        self.motorq.append([w1,w2,w3])
         self.main_board.launch_wheel_motors(self.wheel_one_speed, self.wheel_two_speed, self.wheel_three_speed)
+        #self.main_board.read()
 
     def set_movement(self, linear_speed, direction_degrees, angular_speed):
         w1 = self.get_speed_for_wheel(WHEEL_ONE_ANGLE, direction_degrees,
@@ -85,6 +95,7 @@ class SerialCommunication():
     def new_object_callback_servos(self, point):
         self.main_board.launch_servos(point.x, point.y)
 
+
     '''Reading commands from a mainboard and publishing them to xbee_commands publisher'''
     def read_command(self):
         self.xbe_publisher.publish(str(self.main_board.read()))
@@ -96,7 +107,7 @@ class SerialCommunication():
 
 if __name__ == '__main__':
     rospy.init_node('serial_communication', anonymous=True)
-    rate = rospy.Rate(20)
+    rate = rospy.Rate(30)
     serial_communication = SerialCommunication()
 
     while not rospy.is_shutdown():

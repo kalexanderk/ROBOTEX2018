@@ -1,13 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import serial
 import threading
 import time
 import subprocess
 import rospy
-
-
-# Taken from:
-# https://bitbucket.org/MartinAppo/diploaf-2017/src/master/hardware_module/src/hardware_module/comport_mainboard.py?fileviewer=file-view-default
-
 
 class ComportMainboard(threading.Thread):
 
@@ -38,6 +36,7 @@ class ComportMainboard(threading.Thread):
 
         return self.connection_opened
 
+    '''Write (send) commands to mainboard'''
     def write(self, comm):
         if self.connection is not None:
             try:
@@ -45,53 +44,42 @@ class ComportMainboard(threading.Thread):
             except:
                 print('mainboard: err write ' + comm)
 
-    # def read(self):
-    #     command = ""
-    #     while not rospy.is_shutdown():
-    #         character = self.connection.read()
-    #         if character == '\n':
-    #             break
-    #         command += character
-    #     print(command)
-    #     return command
-
-    # def read(self):
-    #     full_command, single_character = "", ""
-    #     while single_character != "\n":
-    #         single_character = self.connection.read()
-    #         full_command += single_character
-    #     return full_command
-
+    '''Read from mainboard buffer'''
     def read(self):
-        if self.connection is not None and self.connection.isOpen:
-            print(self.connection.in_waiting)
-            while self.connection.in_waiting > 0:
-                self.connection.read()
-        return "hello"
+        message = ""
+        character = ""
+        while not rospy.is_shutdown():
+            if self.connection is None or not self.connection.in_waiting:
+                break
+            character = self.connection.read()
+            if character == "\n":
+                break
+            message += character
+        return message
 
-    #launch_wheel_motors(-20,20,0)
+    '''Launch_wheel_motors(-20,20,0)'''
     def launch_wheel_motors(self,speed1, speed2, speed3):
         if self.connection_opened:
             self.write("sd:{}:{}:{}".format(speed1, speed2, speed3))
 
-    #launch_thrower(125-250)
+    '''Launch_thrower(125-250)'''
     def launch_thrower(self, speed):
         if self.connection_opened:
             self.write("d:{}".format(speed))
 
-    #launch servos(1: 720-825; 2: <700 - continuous mode; 2300 -> 100 - fast movement)
+    '''Launch servos(1: 720-825; 2: <700 - continuous mode; 2300 -> 100 - fast movement)'''
     def launch_servos(self, servo1, servo2):
         if self.connection_opened:
             self.write("sv:{}:{}".format(servo1, servo2))
 
-    #get_wheel_speeds()
+    '''Get_wheel_speeds()'''
     def get_wheel_speeds(self):
         if self.connection_opened:
             self.write("gs\n")
             return self.connection.readline()
 
 
-    #send_referee_signal_string("START")
+    '''Send_referee_signal_string("START")'''
     def send_referee_signal_string(self, signal_string):
         if self.connection_opened:
             self.write("rf:{}".format(signal_string))
@@ -100,13 +88,11 @@ class ComportMainboard(threading.Thread):
         if self.connection is not None and self.connection.isOpen():  # close coil
             try:
                 self.launch_servos(0,0)
-                self.read()
                 self.connection.close()
 		
                 print('mainboard: connection closed')
             except:
                 print('mainboard: err connection close')
-                self.read()
             self.connection = None
 
     def run(self):
