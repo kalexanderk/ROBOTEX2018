@@ -18,8 +18,8 @@ class GameLogicState():
         '''
         self.ID[0] - field number (A or B)
         self.ID[1] - robot number (X, A, B, C or D)
-        self.ID = 'BA'
         '''
+        self.ID = 'AB'
 
         '''Publisher for sending the field number to image processing node'''
         self.field_num_pub = rospy.Publisher("field_number", String, queue_size=25)
@@ -211,7 +211,7 @@ if __name__ == "__main__":
 
     game_logic = GameLogicState()
 
-    game_logic.state = 0
+    game_logic.state = 1
 
     sleep(1)
 
