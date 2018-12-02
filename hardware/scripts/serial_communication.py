@@ -87,8 +87,7 @@ class SerialCommunication():
 
     '''Reading commands from a mainboard and publishing them to xbee_commands publisher'''
     def read_command(self):
-        if self.started:
-            self.xbe_publisher.publish(str(self.main_board.read()))
+        self.xbe_publisher.publish(str(self.main_board.read()))
 
     '''Sending the answer to xbee commands'''
     def new_xbee_send_callback(self, message):
@@ -97,10 +96,9 @@ class SerialCommunication():
 
 if __name__ == '__main__':
     rospy.init_node('serial_communication', anonymous=True)
-    rate = rospy.Rate(50)
+    rate = rospy.Rate(20)
     serial_communication = SerialCommunication()
 
     while not rospy.is_shutdown():
         serial_communication.read_command()
         rate.sleep()
-    serial_communication.read_command()

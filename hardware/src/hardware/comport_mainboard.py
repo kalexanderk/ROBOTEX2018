@@ -45,12 +45,29 @@ class ComportMainboard(threading.Thread):
             except:
                 print('mainboard: err write ' + comm)
 
+    # def read(self):
+    #     command = ""
+    #     while not rospy.is_shutdown():
+    #         character = self.connection.read()
+    #         if character == '\n':
+    #             break
+    #         command += character
+    #     print(command)
+    #     return command
+
+    # def read(self):
+    #     full_command, single_character = "", ""
+    #     while single_character != "\n":
+    #         single_character = self.connection.read()
+    #         full_command += single_character
+    #     return full_command
+
     def read(self):
-        full_command, single_character = "", ""
-        while single_character != "\n":
-            single_character = self.connection.read()
-            full_command += single_character
-        return full_command
+        if self.connection is not None and self.connection.isOpen:
+            print(self.connection.in_waiting)
+            while self.connection.in_waiting > 0:
+                self.connection.read()
+        return "hello"
 
     #launch_wheel_motors(-20,20,0)
     def launch_wheel_motors(self,speed1, speed2, speed3):
@@ -83,13 +100,14 @@ class ComportMainboard(threading.Thread):
         if self.connection is not None and self.connection.isOpen():  # close coil
             try:
                 self.launch_servos(0,0)
+                self.read()
                 self.connection.close()
 		
                 print('mainboard: connection closed')
             except:
                 print('mainboard: err connection close')
                 self.read()
-                self.connection = None
+            self.connection = None
 
     def run(self):
         if self.open():  # open serial connections

@@ -315,7 +315,7 @@ if __name__ == "__main__":
 
         camera = ImageProcessor()
         camera.run()
-        rate = rospy.Rate(25)
+        rate = rospy.Rate(30)
 
         '''SET FIELDS' LETTERS'''
         magenta_field = 'A'

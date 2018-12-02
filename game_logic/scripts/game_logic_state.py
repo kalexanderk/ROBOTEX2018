@@ -29,9 +29,9 @@ class GameLogicState():
         self.xbee_sub = rospy.Subscriber("xbee_commands", String, self.new_xbee_callback)
         self.xbee_send_pub = rospy.Publisher("xbee_send", String, queue_size=120)
         # sending requests for running motors and thrower
-        self.robot_movement_pub = rospy.Publisher('robot_movement', Point, queue_size=15)
-        self.thrower_pub = rospy.Publisher("thrower", Int16, queue_size=15)
-        self.servos_pub = rospy.Publisher("servos", Point, queue_size=15)
+        self.robot_movement_pub = rospy.Publisher('robot_movement', Point, queue_size=16)
+        self.thrower_pub = rospy.Publisher("thrower", Int16, queue_size=16)
+        self.servos_pub = rospy.Publisher("servos", Point, queue_size=16)
 
 
         self.xbee = None
@@ -170,12 +170,12 @@ class GameLogicState():
         xDe = (currentX_e - self.previousX_e)
 
         # TODO: CORRECT CONSTANTS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        u = (currentX_e/4.5) + (self.xIe/600) + (xDe/10)
+        u = (currentX_e/3.8) + (self.xIe/550) + (xDe/13)
 
         self.previousX_e = currentX_e
 
         # TODO: DEFINE THE MAXIMUM VALUE FOR THE MOTOR AND FOR HERE RESPECTIVELY!!!!!!!!!!!!
-        if math.fabs(u) > 800:
+        if math.fabs(u) > 600:
             self.xIe = 0
 
         return int(u)
@@ -217,33 +217,21 @@ if __name__ == "__main__":
     global flag_t
     flag_t = 0
     rospy.init_node('game_logic', anonymous=True)
-    rate = rospy.Rate(25)
+    rate = rospy.Rate(30)
 
     game_logic = GameLogicState()
 
-    game_logic.state = 0
+    game_logic.state = 1
 
     sleep(1)
 
-    game_logic.servos(0, 4000)
+    game_logic.servos(0, 0)
 
 
     while not rospy.is_shutdown():
         # send the field number to image processing node: A - magenta, B - blue
         game_logic.field_num_pub.publish(game_logic.ID[0])
 
-
-        game_logic.move_forward_to_ball()
-        if counter_t == 30:
-            game_logic.servos(0, 0)
-            #counter_t = 0
-            #game_logic.state = 4
-            pass
-        counter_t += 1
-
-        if game_logic.basket_dist is not None and \
-                math.fabs(game_logic.basket_dist - 1.575) <= 1.255:
-            game_logic.throw()
 
         if game_logic.state == 1:
             print('State 1')
@@ -255,8 +243,7 @@ if __name__ == "__main__":
 
         elif game_logic.state == 2:
             print('State 2')
-            if game_logic.ball_y > 710:
-                # TODO: here make the function to approach closer to the ball and grab it
+            if game_logic.ball_y > 690:
                 game_logic.xIe = 0
                 game_logic.state = 3
                 counter_t = 0
@@ -272,23 +259,27 @@ if __name__ == "__main__":
         elif game_logic.state == 3:
             print('State 3')
             game_logic.servos(0, 4000)
-            game_logic.move_forward_to_ball()
+
             if counter_t == 30:
                 game_logic.servos(0, 0)
                 counter_t = 0
                 game_logic.state = 4
                 pass
             counter_t += 1
-
+            game_logic.move_forward_to_ball()
 
         elif game_logic.state == 4:
             print('State 4')
 
+            if game_logic.basket_x is not None:
+                print(str(math.fabs(game_logic.basket_x - center_thrower)))
+
             if game_logic.basket_x is None:
                 game_logic.rotatingL()
             elif math.fabs(game_logic.basket_x - center_thrower) < 15:
+
                 game_logic.state = 5
-                print("Found the basket; x = " + str(game_logic.basket_x))
+                #print("Found the basket; x = " + str(game_logic.basket_x))
             elif game_logic.basket_x >= center_thrower + 15:
                 game_logic.rotatingR()
 
@@ -299,11 +290,12 @@ if __name__ == "__main__":
                     math.fabs(game_logic.basket_dist - 1.575) <= 1.255:
                 game_logic.throw()
                 if flag_t == 1:
+                    sleep(0.5)
                     game_logic.state = 1
                 flag_t = 0
-            else:
+            elif game_logic.basket_dist is not None:
                 print('Go closer to the basket or further from it to get into the range(0.32,2.83).')
                 game_logic.move_forward_to_ball()
         rate.sleep()
 
-    game_logic.servos(0, 0)
+
